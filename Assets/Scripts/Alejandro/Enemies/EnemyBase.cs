@@ -12,6 +12,11 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected List<Transform> waypoints;
     protected Transform currentWaypoint;
 
+    public List<Transform> Waypoints
+    {
+        set { waypoints = value; }
+    }
+
     private void Awake()
     {
         currentHealth = settings.MaxHealth;
