@@ -90,6 +90,7 @@ public class EnemyType1 : EnemyBase
                 else
                 {
                     internalWaypoints = Waypoints.SecondSegmentLeft;
+                    transform.parent = null;
                 }
             }
             else
@@ -114,6 +115,7 @@ public class EnemyType1 : EnemyBase
                 else
                 {
                     internalWaypoints = Waypoints.SecondSegmentRight;
+                    transform.parent = null;
                 }
             }
             else
