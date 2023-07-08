@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float outerAngle;
     // Raise Modifier = +-1 and is used to make sure the active arm always moves upward when scrolling up
     float raiseModifier;
-    
+    [SerializeField]
+    Vector3 currentRotation;
   
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         this.outerAngle = playerSettings.outerAngle;
         this.innerAngle = playerSettings.innerAngle;
         activeShoulder = shoulders[0];
+        activeShoulder.transform.localRotation = Quaternion.Euler(currentRotation);
         raiseModifier = 1;
     }
 
@@ -33,19 +35,38 @@ public class PlayerController : MonoBehaviour
         SelectArm();
         RenderActiveArm();
         // Moves the selected arm
-        activeShoulder.transform.Rotate(- rotationSpeed * raiseModifier * Input.GetAxis("Mouse ScrollWheel") * Vector3.forward);
-        Vector3 currentRotation = activeShoulder.transform.rotation.eulerAngles;
-        if (activeShoulder == shoulders[0])
-        {
+
+            activeShoulder.transform.Rotate(-rotationSpeed * raiseModifier * Input.GetAxis("Mouse ScrollWheel") * Vector3.forward);
+            currentRotation = activeShoulder.transform.rotation.eulerAngles;
+        if(activeShoulder == shoulders[0])
             currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
-        } else
+
+        if (activeShoulder == shoulders[1])
         {
-            currentRotation.z = Mathf.Clamp(currentRotation.z, -innerAngle+180, -outerAngle+180);
+            if (currentRotation.z < 180 - innerAngle || currentRotation.z > 180)
+                currentRotation.z = 180 - innerAngle;
+
+            if (currentRotation.z > 180 - outerAngle)
+                currentRotation.z = 180 - outerAngle;
+
         }
-        
-        activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
+
+        activeShoulder.transform.localRotation = Quaternion.Euler(currentRotation);
 
         
+    }
+
+    int Heavi(float x)
+    {
+        if (x < 0)
+            return 0;
+        else
+            return 1;
+    }
+
+    float RectStep(float a, float b)
+    {
+        return Heavi(a) - Heavi(b);
     }
 
     void SelectArm()
