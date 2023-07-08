@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         if (activeShoulder == shoulders[1])
         {
-            if (currentRotation.z < 180 - innerAngle || currentRotation.z > 180)
+            if (currentRotation.z < 180 - innerAngle || currentRotation.z > 270)
                 currentRotation.z = 180 - innerAngle;
 
             if (currentRotation.z > 180 - outerAngle)

@@ -485,6 +485,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7487466457262300143, guid: 27207495a68467b43b423ce41e38d7e5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27207495a68467b43b423ce41e38d7e5, type: 3}
 --- !u!1001 &4228755643770459996
@@ -608,6 +612,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 313243939}
     m_Modifications:
+    - target: {fileID: 4696850268049170269, guid: c998e5d141282354cbcd7d8e56924a74, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9123083336558843816, guid: c998e5d141282354cbcd7d8e56924a74, type: 3}
       propertyPath: m_Name
       value: Left Shoulder
