@@ -49,6 +49,8 @@ public class EnemyType1 : EnemyBase
 
         currentWaypoint = waypoints[currentWaypointIndex];
         currentWaypointIndex++;
+        transform.LookAt(currentWaypoint);
+
 
         direction = currentWaypoint.position - transform.position;
         direction.Normalize();
