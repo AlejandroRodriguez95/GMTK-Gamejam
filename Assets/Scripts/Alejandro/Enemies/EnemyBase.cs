@@ -10,10 +10,21 @@ public abstract class EnemyBase : MonoBehaviour
     protected float moveSpeed;
 
     [SerializeField] protected List<Transform> internalWaypoints;
+
+    [SerializeField]
     protected Transform currentWaypoint;
 
     protected bool alreadyLoadedSecondSegment;
+    protected bool alreadyLoadedLastSegment;
     protected bool side; // false = left, true = right
+
+    protected Transform armTransform;
+
+    public Transform ArmTransform
+    {
+        get { return armTransform; }
+        set { armTransform = value; }
+    }
 
     public bool Side
     {

@@ -10,6 +10,6 @@ public class ArmInContactWithFloor : MonoBehaviour
     private void Awake()
     {
         RightArmIsInContactWithFloor = true;
-        LeftArmIsInContactWithFloor = false;
+        LeftArmIsInContactWithFloor = true;
     }
 }

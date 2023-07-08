@@ -10,6 +10,8 @@ public class Waypoints : MonoBehaviour
     public static List<Transform> RightArmWaypoints;
     public static List<Transform> SecondSegmentLeft;
     public static List<Transform> SecondSegmentRight;
+    public static List<Transform> LastSegmentRight;
+    public static List<Transform> LastSegmentLeft;
 
     [SerializeField] GameObject leftArmWaypointsGameObject;
     [SerializeField] GameObject leftGameObject;
@@ -17,6 +19,8 @@ public class Waypoints : MonoBehaviour
     [SerializeField] GameObject rightGameObject;
     [SerializeField] GameObject secondSegmentLeft;
     [SerializeField] GameObject secondSegmentRight;
+    [SerializeField] GameObject lastSegmentRightGO;
+    [SerializeField] GameObject lastSegmentLeftGO;
 
     int leftCount;
     int leftArmCount;
@@ -24,6 +28,8 @@ public class Waypoints : MonoBehaviour
     int rightCount;
     int secondSegmentLeftCount;
     int secondSegmentRightCount;
+    int lastSegmentLeftCount;
+    int lastSegmentRightCount;
 
     private void Awake()
     {
@@ -33,7 +39,9 @@ public class Waypoints : MonoBehaviour
         RightArmWaypoints = new List<Transform>();
         SecondSegmentLeft = new List<Transform>();
         SecondSegmentRight = new List<Transform>();
-
+        LastSegmentLeft = new List<Transform>();
+        LastSegmentRight = new List<Transform>();
+        
 
         secondSegmentLeftCount = secondSegmentLeft.transform.childCount;
         secondSegmentRightCount = secondSegmentRight.transform.childCount;
@@ -41,6 +49,8 @@ public class Waypoints : MonoBehaviour
         leftArmCount = leftArmWaypointsGameObject.transform.childCount;
         rightArmCount = rightArmWaypointsGameObject.transform.childCount;
         rightCount = rightGameObject.transform.childCount;
+        lastSegmentLeftCount = lastSegmentLeftGO.transform.childCount;
+        lastSegmentRightCount = lastSegmentRightGO.transform.childCount;
 
         for(int i = 0; i < leftCount; i++)
         {
@@ -67,6 +77,15 @@ public class Waypoints : MonoBehaviour
             SecondSegmentRight.Add(secondSegmentRight.transform.GetChild(i));
         }
 
+        for(int i=0; i < lastSegmentRightCount; i++)
+        {
+            LastSegmentRight.Add(lastSegmentRightGO.transform.GetChild(i));
+        }
+
+        for(int i=0;i < lastSegmentLeftCount; i++)
+        {
+            LastSegmentLeft.Add(lastSegmentLeftGO.transform.GetChild(i));
+        }
 
         for(int i = 0; i < rightCount; i++)
         {

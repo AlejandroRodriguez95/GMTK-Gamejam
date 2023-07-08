@@ -51,17 +51,27 @@ public class PlayerController : MonoBehaviour
             currentRotation = activeShoulder.transform.rotation.eulerAngles;
             if (activeShoulder == shoulders[0])
             {
+                ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
             }
 
             if (activeShoulder == shoulders[1])
             {
+                ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
             }
 
             activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
+
         }
-        
+
+        if (shoulders[0].transform.rotation == leftIdleRotation && ArmInContactWithFloor.LeftArmIsInContactWithFloor == false)
+            ArmInContactWithFloor.LeftArmIsInContactWithFloor = true;
+
+        if (shoulders[1].transform.rotation == rightIdleRotation && ArmInContactWithFloor.RightArmIsInContactWithFloor == false)
+            ArmInContactWithFloor.RightArmIsInContactWithFloor = true;
+
+
     }
 
     int Heavi(float x)

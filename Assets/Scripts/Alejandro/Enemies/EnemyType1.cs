@@ -7,6 +7,8 @@ public class EnemyType1 : EnemyBase
     Vector3 direction;
     public int currentWaypointIndex;
     Transform lastWaypoint;
+    bool mustUpdateDirection;
+
 
 
 
@@ -33,6 +35,12 @@ public class EnemyType1 : EnemyBase
 
     private void MoveToWayPoint()
     {
+        if (mustUpdateDirection)
+        {
+            direction = currentWaypoint.localPosition - transform.localPosition;
+        }
+
+
         Vector3 movement = direction * moveSpeed * Time.deltaTime;
 
         transform.Translate(movement);
@@ -41,11 +49,14 @@ public class EnemyType1 : EnemyBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.transform != currentWaypoint)
+            return;
+
         if (currentWaypointIndex >= internalWaypoints.Count)
         {
             currentWaypointIndex++;
 
-            if (!alreadyLoadedSecondSegment)
+            if (!alreadyLoadedLastSegment)
                 LoadNextWaypointsSegment();
             else
                 Debug.Log("Game over!");
@@ -65,30 +76,52 @@ public class EnemyType1 : EnemyBase
     {
         if(side == false)
         {
-            
-            if (ArmInContactWithFloor.LeftArmIsInContactWithFloor)
+            if (!alreadyLoadedSecondSegment)
             {
-                internalWaypoints = Waypoints.LeftArmWaypoints;
+                alreadyLoadedSecondSegment = true;
+
+                if (ArmInContactWithFloor.LeftArmIsInContactWithFloor)
+                {
+                    internalWaypoints = Waypoints.LeftArmWaypoints;
+                    mustUpdateDirection = true;
+                    transform.parent = armTransform;
+                }
+                else
+                {
+                    internalWaypoints = Waypoints.SecondSegmentLeft;
+                }
             }
             else
             {
-                internalWaypoints = Waypoints.SecondSegmentLeft;
+                internalWaypoints = Waypoints.LastSegmentLeft;
+                mustUpdateDirection = false;
+                alreadyLoadedLastSegment = true;
             }
         }
         else
         {
-            
-            if (ArmInContactWithFloor.RightArmIsInContactWithFloor)
+            if (!alreadyLoadedSecondSegment)
             {
-                internalWaypoints = Waypoints.RightArmWaypoints;
+                alreadyLoadedSecondSegment = true;
+
+                if (ArmInContactWithFloor.RightArmIsInContactWithFloor)
+                {
+                    internalWaypoints = Waypoints.RightArmWaypoints;
+                    mustUpdateDirection = true;
+                    transform.parent = armTransform;
+                }
+                else
+                {
+                    internalWaypoints = Waypoints.SecondSegmentRight;
+                }
             }
             else
             {
-                internalWaypoints = Waypoints.SecondSegmentRight;
+                internalWaypoints = Waypoints.LastSegmentRight;
+                alreadyLoadedLastSegment = true;
             }
         }
 
-        alreadyLoadedSecondSegment = true;
         currentWaypointIndex = 0;
 
         currentWaypoint = internalWaypoints[currentWaypointIndex];
