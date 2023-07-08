@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     void Update()     
     {
         SelectArm();
-        RenderActiveArm();
         // Moves the selected arm
 
         shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, Time.deltaTime);
@@ -103,26 +102,5 @@ public class PlayerController : MonoBehaviour
             raiseModifier = -1;
         }
     }
-    void RenderActiveArm()
-    {
-        foreach (GameObject shoulder in shoulders)
-        {
-            renderers = shoulder.GetComponentsInChildren<SpriteRenderer>();
-            if (shoulder == activeShoulder)
-            {
-                foreach (SpriteRenderer ren in renderers)
-                {
-                    ren.color = Color.red;
-                }
-            }
-            else
-            {
-                foreach (SpriteRenderer ren in renderers)
-                {
-                    ren.color = Color.grey;
-                }
-            }
-
-        }
-    }
+   
 }
