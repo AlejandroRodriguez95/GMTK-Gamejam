@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         if(activeShoulder == shoulders[0])
             currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
 
-        if (activeShoulder == shoulders[1])
+       /* if (activeShoulder == shoulders[1])
         {
             if (currentRotation.z < 180 - innerAngle || currentRotation.z > 180)
                 currentRotation.z = 180 - innerAngle;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             if (currentRotation.z > 180 - outerAngle)
                 currentRotation.z = 180 - outerAngle;
 
-        }
+        }*/
 
         activeShoulder.transform.localRotation = Quaternion.Euler(currentRotation);
 
