@@ -12,19 +12,20 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.leftWaypoints, leftSpawnPos.position, leftEnemyPrefab));
-        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.rightWaypoints, rightSpawnPos.position, rightEnemyPrefab));
+        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false));
+        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true));
     }
 
 
-    IEnumerator SpawnLeftEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy)
+    IEnumerator SpawnLeftEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy, bool side)
     {
         while (true)
         {
             yield return new WaitForSeconds(seconds);
 
             var tempEnemy = Instantiate(enemy, pos, Quaternion.identity);
-            tempEnemy.GetComponent<EnemyBase>().Waypoints = waypoints;
+            tempEnemy.GetComponent<EnemyBase>().InternalWaypoints = waypoints;
+            tempEnemy.GetComponent<EnemyBase>().Side = side;
         }
     }
 }
