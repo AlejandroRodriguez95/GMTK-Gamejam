@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6706278712788815047}
   - component: {fileID: 234277457708151914}
-  - component: {fileID: 1383553936215180524}
+  - component: {fileID: 7821757923631327833}
   - component: {fileID: 9106931056632416777}
   m_Layer: 0
-  m_Name: Left Upper Arm
+  m_Name: Right Upper Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,8 +86,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1383553936215180524
-BoxCollider2D:
+--- !u!60 &7821757923631327833
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -109,9 +109,20 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.95703125, y: 1.5234375}
+      - {x: 0.049118757, y: 1.3766626}
+      - {x: -0.60160065, y: 0.9001765}
+      - {x: -1.173228, y: 0.43336058}
+      - {x: -1.4124382, y: 0.16939807}
+      - {x: -1.4257812, y: -1.09375}
+      - {x: -1.1914062, y: -1.40625}
+      - {x: -1.0351562, y: -1.5234375}
+      - {x: 0.17578125, y: -1.4967512}
+      - {x: 1.1647198, y: -1.090849}
+      - {x: 1.4257812, y: -0.8984375}
+      - {x: 1.4257812, y: 0.9765625}
 --- !u!50 &9106931056632416777
 Rigidbody2D:
   serializedVersion: 4
@@ -143,7 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2463477325726928350}
   - component: {fileID: 4732675281927037483}
-  - component: {fileID: 4226331614829906049}
+  - component: {fileID: 5455940726174345052}
   - component: {fileID: 273188027768515704}
   m_Layer: 0
   m_Name: Forearm
@@ -219,8 +230,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4226331614829906049
-BoxCollider2D:
+--- !u!60 &5455940726174345052
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -242,9 +253,19 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.0848842, y: 1.5235689}
+      - {x: 0.81347036, y: 1.6055553}
+      - {x: -0.43274546, y: 0.3412056}
+      - {x: -0.873157, y: 0.34503847}
+      - {x: -1.3702455, y: -0.32974792}
+      - {x: -1.3657479, y: -0.7433934}
+      - {x: -0.7444706, y: -1.6103699}
+      - {x: 0.5629387, y: -1.5147028}
+      - {x: 0.9449606, y: -1.1578736}
+      - {x: 1.3743854, y: -0.24723375}
+      - {x: 1.4364467, y: 1.108277}
 --- !u!50 &273188027768515704
 Rigidbody2D:
   serializedVersion: 4
