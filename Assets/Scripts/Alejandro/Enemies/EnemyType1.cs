@@ -28,6 +28,7 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
+        transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime*10));
         if(currentWaypointIndex <= internalWaypoints.Count)
             MoveToWayPoint();
     }
@@ -43,7 +44,7 @@ public class EnemyType1 : EnemyBase
 
         Vector3 movement = direction * moveSpeed * Time.deltaTime;
 
-        transform.Translate(movement);
+        //transform.Translate(movement);
     }
 
 
