@@ -21,7 +21,6 @@ public class Button : MonoBehaviour, IPointerEnterHandler
     public void OnPointerEnter(PointerEventData data)
     {
         this.source.PlayOneShot(this.getClip());
-        Debug.Log("Playing");
     }
 
     public void OnPlayButton()

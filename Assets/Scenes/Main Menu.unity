@@ -326,6 +326,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1000127701}
     m_Modifications:
+    - target: {fileID: 1913507889369839522, guid: c1ee9347f925b3142aaa1f06b78736f2, type: 3}
+      propertyPath: Priority
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 1913507889369839532, guid: c1ee9347f925b3142aaa1f06b78736f2, type: 3}
       propertyPath: m_Name
       value: Play Button
