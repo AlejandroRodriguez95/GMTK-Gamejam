@@ -286,6 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 6619a52c65e52d840a4735fc5ce08fac, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cce3496d7462c944bb9ae130e306373, type: 3}
+--- !u!82 &1077284153 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8650594852518113972, guid: 7cce3496d7462c944bb9ae130e306373, type: 3}
+  m_PrefabInstance: {fileID: 959940904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1467309463
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +453,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1971888024}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1077284153}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
