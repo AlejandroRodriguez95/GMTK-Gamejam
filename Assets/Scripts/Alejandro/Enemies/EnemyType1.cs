@@ -8,12 +8,23 @@ public class EnemyType1 : EnemyBase
     public int currentWaypointIndex;
     Transform lastWaypoint;
     bool mustUpdateDirection;
+    Vector3 lastPosition;
+    [SerializeField]
+    float shakeDamageScale;
+    [SerializeField]
+    float chipDamage;
+    Rigidbody2D rb2d;
+    BoxCollider2D bc2d;
+    bool alive = true;
+
 
 
 
 
     private void Start()
     {
+        rb2d = GetComponent<Rigidbody2D>();
+        bc2d = GetComponent<BoxCollider2D>();
         currentWaypointIndex = 0;
 
         if(internalWaypoints.Count > 0)
@@ -28,9 +39,20 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime*10));
-        if(currentWaypointIndex <= internalWaypoints.Count)
-            MoveToWayPoint();
+        if (alive) { 
+            lastPosition = transform.position;
+            transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 10));
+            if (currentWaypointIndex <= internalWaypoints.Count)
+                MoveToWayPoint();
+
+            TakeDamage();
+        
+            if(currentHealth<=0)
+            {
+                StartCoroutine(Die());
+                alive = false;
+            }
+        }
     }
 
 
@@ -132,5 +154,42 @@ public class EnemyType1 : EnemyBase
 
         direction = currentWaypoint.position - transform.position;
         direction.Normalize();
+    }
+
+    void TakeDamage()
+    {
+        try {
+            if (transform.parent.gameObject.CompareTag("Arm"))
+            {
+                Vector3 direction = (currentWaypoint.position - transform.position).normalized;
+                Vector3 velocity = (transform.position - lastPosition) / Time.deltaTime;
+                Debug.Log(shakeDamageScale * Vector3.Dot(direction, velocity));
+                currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
+            } 
+        }
+        catch { }
+    }
+
+    IEnumerator Die()
+    {
+        transform.parent = null;
+        rb2d.gravityScale = 0.5f;
+        float angle = Random.Range(0, Mathf.PI);
+        float magnitude = Random.Range(20, 40);
+        Vector3 force = magnitude * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle),0);
+        Debug.Log(force);
+        rb2d.AddForce(force,ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(5);
+
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null)
+        {
+            currentHealth -= chipDamage;
+        }
     }
 }
