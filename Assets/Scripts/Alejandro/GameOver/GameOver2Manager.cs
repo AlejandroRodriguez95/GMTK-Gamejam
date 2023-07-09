@@ -12,6 +12,8 @@ public class GameOver2Manager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(FadeOutAfter(2));
+
+        StartCoroutine(GoBackToMainMenu());
     }
 
     IEnumerator DisplayBannerAndButton()
@@ -23,7 +25,7 @@ public class GameOver2Manager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Final");
+        SceneManager.LoadScene("StartScreen");
     }
 
 
@@ -34,6 +36,13 @@ public class GameOver2Manager : MonoBehaviour
 
         yield return new WaitForSeconds(seconds + 2);
         StartCoroutine(DisplayBannerAndButton());
+    }
+
+    IEnumerator GoBackToMainMenu()
+    {
+        yield return new WaitForSeconds(8);
+
+        RestartGame();
     }
 
     IEnumerator FadeIn()
@@ -55,5 +64,7 @@ public class GameOver2Manager : MonoBehaviour
         }
         color.a = 0f;
         image.color = color;
+
+        image.gameObject.SetActive(false);
     }
 }
