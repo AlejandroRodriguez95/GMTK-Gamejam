@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyType1 : EnemyBase
 {
 
     public GameObject sfxManager;
+
+
 
     public int currentWaypointIndex;
     Transform lastWaypoint;
@@ -70,7 +73,10 @@ public class EnemyType1 : EnemyBase
             if (!alreadyLoadedLastSegment)
                 LoadNextWaypointsSegment();
             else
-                Debug.Log("Game over!");
+            {
+                gameOverImage.gameObject.SetActive(true);
+                StartCoroutine(FadeOutAfter(2));
+            }
 
             return;
         }
@@ -192,4 +198,64 @@ public class EnemyType1 : EnemyBase
             currentHealth -= chipDamage;
         }
     }
+
+
+    #region gameover stuff
+
+
+    IEnumerator FadeOutAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds + 2);
+        StartCoroutine(FadeOut());
+
+        yield return new WaitForSeconds(seconds);
+
+        SceneManager.LoadScene("GameOver");
+    }
+
+    IEnumerator FadeOut()
+    {
+        float elapsedTime = 0f;
+        float fadeTime = 3f;
+
+        Color color = gameOverImage.color;
+
+        while (elapsedTime < fadeTime)
+        {
+            yield return new WaitForEndOfFrame();
+
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = elapsedTime / fadeTime;
+
+            color.a = Mathf.Lerp(0f, 1f, normalizedTime);
+            gameOverImage.color = color;
+        }
+
+        color.a = 1f;
+        gameOverImage.color = color;
+    }
+
+    IEnumerator FadeIn()
+    {
+        float elapsedTime = 0f;
+        float fadeTime = 3f;
+
+        Color color = gameOverImage.color;
+
+        while (elapsedTime < fadeTime)
+        {
+            yield return new WaitForEndOfFrame();
+
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = elapsedTime / fadeTime;
+
+            color.a = Mathf.Lerp(1f, 0f, normalizedTime);
+            gameOverImage.color = color;
+        }
+        color.a = 0f;
+        gameOverImage.color = color;
+    }
+
+    #endregion
+
 }

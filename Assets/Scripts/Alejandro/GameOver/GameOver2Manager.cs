@@ -23,8 +23,7 @@ public class GameOver2Manager : MonoBehaviour
 
     public void RestartGame()
     {
-        Debug.Log("Restarting game");
-        //SceneManager.LoadScene()
+        SceneManager.LoadScene("Final");
     }
 
 

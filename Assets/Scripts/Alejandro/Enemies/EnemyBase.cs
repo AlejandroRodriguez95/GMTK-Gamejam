@@ -20,6 +20,13 @@ public abstract class EnemyBase : MonoBehaviour
     protected bool alreadyLoadedLastSegment;
     protected bool side; // false = left, true = right
 
+    [SerializeField] protected SpriteRenderer gameOverImage;
+
+    public SpriteRenderer GameOverImage
+    {
+        set { gameOverImage = value; }
+    }
+
     protected Transform armTransform;
 
     public Transform ArmTransform
