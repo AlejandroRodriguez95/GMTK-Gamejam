@@ -866,7 +866,7 @@ MonoBehaviour:
   - {fileID: 1985636876}
   L_Target: {fileID: 961471129}
   R_Target: {fileID: 102527484}
-  moveSpeed: 0.02
+  moveSpeed: 0.23
   L_ForeArm: {fileID: 8357539484371203081}
   R_ForeArm: {fileID: 8288588970025532772}
   L_Arm: {fileID: 6146150305341529764}
