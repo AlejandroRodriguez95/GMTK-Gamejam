@@ -51,13 +51,13 @@ public class PlayerController : MonoBehaviour
             if (activeShoulder == shoulders[0])
             {
                 ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
-                currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
+                //currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
             }
 
             if (activeShoulder == shoulders[1])
             {
                 ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
-                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
+                //currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
             }
 
             activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);

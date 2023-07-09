@@ -6,16 +6,20 @@ public class Waypoints : MonoBehaviour
 {
     public static List<Transform> LeftWaypoints;
     public static List<Transform> LeftArmWaypoints;
+    public static List<Transform> LeftForeArmWaypoints;
     public static List<Transform> RightWaypoints;
     public static List<Transform> RightArmWaypoints;
+    public static List<Transform> RightForeArmWaypoints;
     public static List<Transform> SecondSegmentLeft;
     public static List<Transform> SecondSegmentRight;
     public static List<Transform> LastSegmentRight;
     public static List<Transform> LastSegmentLeft;
 
     [SerializeField] GameObject leftArmWaypointsGameObject;
+        [SerializeField] GameObject leftForeArmWaypointsGameObject;
     [SerializeField] GameObject leftGameObject;
     [SerializeField] GameObject rightArmWaypointsGameObject;
+        [SerializeField] GameObject rightForeArmWaypointsGameObject;
     [SerializeField] GameObject rightGameObject;
     [SerializeField] GameObject secondSegmentLeft;
     [SerializeField] GameObject secondSegmentRight;
@@ -25,6 +29,8 @@ public class Waypoints : MonoBehaviour
     int leftCount;
     int leftArmCount;
     int rightArmCount;
+    int leftForeArmCount;
+    int rightForeArmCount;
     int rightCount;
     int secondSegmentLeftCount;
     int secondSegmentRightCount;
@@ -37,6 +43,8 @@ public class Waypoints : MonoBehaviour
         RightWaypoints = new List<Transform>();
         LeftArmWaypoints = new List<Transform>();
         RightArmWaypoints = new List<Transform>();
+        LeftForeArmWaypoints = new List<Transform>();
+        RightForeArmWaypoints = new List<Transform>();
         SecondSegmentLeft = new List<Transform>();
         SecondSegmentRight = new List<Transform>();
         LastSegmentLeft = new List<Transform>();
@@ -66,6 +74,16 @@ public class Waypoints : MonoBehaviour
         {
             LeftArmWaypoints.Add(leftArmWaypointsGameObject.transform.GetChild(i));
         }
+
+        for(int i=0; i < rightArmCount; i++)
+        {
+            RightForeArmWaypoints.Add(rightForeArmWaypointsGameObject.transform.GetChild(i));
+        }        
+        
+        for(int i=0; i < leftArmCount; i++)
+        {
+            LeftForeArmWaypoints.Add(leftForeArmWaypointsGameObject.transform.GetChild(i));
+        }
         
         for(int i=0; i<secondSegmentLeftCount; i++)
         {
@@ -91,5 +109,7 @@ public class Waypoints : MonoBehaviour
         {
             RightWaypoints.Add(rightGameObject.transform.GetChild(i));
         }
+
+        
     }
 }
