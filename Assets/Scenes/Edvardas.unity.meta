@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Art/TempActiveSprite.mat.meta
 guid: 141150165b329f542b012f866ca634fc
 NativeFormatImporter:
+========
+guid: b9cafaa3b4119e64b969ba69af0a7f7e
+DefaultImporter:
+>>>>>>>> Stashed changes:Assets/Scenes/Edvardas.unity.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

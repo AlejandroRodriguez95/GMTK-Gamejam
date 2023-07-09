@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f33b588a71fcb45b68800ae18c53d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   rotationSpeed: 10
   outerAngle: -30
+=======
+  rotationSpeed: 100
+  outerAngle: 35
+>>>>>>> Stashed changes
   innerAngle: 165
