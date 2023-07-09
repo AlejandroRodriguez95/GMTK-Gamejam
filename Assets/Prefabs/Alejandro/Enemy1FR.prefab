@@ -186,10 +186,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 4da3e8c12db2c0c4a8613f1a2deeadd4, type: 2}
+  currentHealth: 0
   internalWaypoints:
   - {fileID: 0}
   currentWaypoint: {fileID: 0}
   currentWaypointIndex: 0
+  shakeDamageScale: 0.1
+  chipDamage: 30
 --- !u!50 &8464510934691822029
 Rigidbody2D:
   serializedVersion: 4

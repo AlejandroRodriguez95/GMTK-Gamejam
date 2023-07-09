@@ -210,6 +210,8 @@ MonoBehaviour:
   internalWaypoints: []
   currentWaypoint: {fileID: 0}
   currentWaypointIndex: 0
+  shakeDamageScale: 0.1
+  chipDamage: 30
 --- !u!50 &8464510934691822029
 Rigidbody2D:
   serializedVersion: 4
