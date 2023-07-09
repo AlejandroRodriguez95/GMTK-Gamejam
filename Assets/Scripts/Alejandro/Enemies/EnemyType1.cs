@@ -70,32 +70,46 @@ public class EnemyType1 : EnemyBase
 
     private void LoadNextWaypointsSegment()
     {
-        if(side == false)
+        if (alreadyLoadedLastSegment)
+            return;
+
+        if(side == false)  // if left side
         {
-            if (!alreadyLoadedSecondSegment)
+            if (!alreadyLoadedSecondSegment) // has second segment been loaded? (forearm or body)
             {
                 alreadyLoadedSecondSegment = true;
 
-                if (ArmInContactWithFloor.LeftArmIsInContactWithFloor)
+                if (ArmInContactWithFloor.LeftArmIsInContactWithFloor) // if arm is in idle pos
                 {
                     internalWaypoints = Waypoints.LeftForeArmWaypoints;
                     mustUpdateDirection = true;
                     transform.parent = armTransform;
                 }
-                else
+                else // arm is not idle, then go through
                 {
                     internalWaypoints = Waypoints.SecondSegmentLeft;
                     transform.parent = null;
+                    alreadyLoadedThirdSegment = true;
                 }
             }
-            else
+            else // if already past the first segment
             {
-                internalWaypoints = Waypoints.LastSegmentLeft;
-                mustUpdateDirection = false;
-                alreadyLoadedLastSegment = true;
+                if (!alreadyLoadedThirdSegment)
+                {
+                    alreadyLoadedThirdSegment = true;
+                    internalWaypoints = Waypoints.LeftArmWaypoints;
+                }
+
+                else
+                {
+                    internalWaypoints = Waypoints.LastSegmentLeft;
+                    mustUpdateDirection = false;
+                    alreadyLoadedLastSegment = true;
+                    transform.parent = null;
+                }
             }
         }
-        else
+        else // if right side
         {
             if (!alreadyLoadedSecondSegment)
             {
@@ -105,25 +119,27 @@ public class EnemyType1 : EnemyBase
                 {
                     internalWaypoints = Waypoints.RightForeArmWaypoints;
                     mustUpdateDirection = true;
-                    
-                   /* if (!alreadyLoadedThirdSegment)
-                    {
-                        alreadyLoadedThirdSegment = true;
-                        internalWaypoints = Waypoints.RightArmWaypoints;
-                        mustUpdateDirection = true;
-
-                    }*/
+                    transform.parent = armTransform;
                 }
                 else
                 {
                     internalWaypoints = Waypoints.SecondSegmentRight;
+                    alreadyLoadedThirdSegment = true;
                     transform.parent = null;
                 }
             }
             else
             {
-                internalWaypoints = Waypoints.LastSegmentRight;
-                alreadyLoadedLastSegment = true;
+                if (!alreadyLoadedThirdSegment)
+                {
+                    alreadyLoadedThirdSegment=true;
+                    internalWaypoints = Waypoints.RightArmWaypoints;
+                }
+                else
+                {
+                    internalWaypoints = Waypoints.LastSegmentRight;
+                    alreadyLoadedLastSegment = true;
+                }
             }
         }
 
