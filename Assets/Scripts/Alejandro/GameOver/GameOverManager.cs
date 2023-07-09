@@ -9,7 +9,7 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FadeOutAfter(2));
+        StartCoroutine(FadeOutAfter(1));
     }
 
     IEnumerator FadeOutAfter(float seconds)
@@ -17,10 +17,10 @@ public class GameOverManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         StartCoroutine(FadeIn());
 
-        yield return new WaitForSeconds(seconds + 2);
+        yield return new WaitForSeconds(seconds + 1.5f);
         StartCoroutine(FadeOut());
 
-        yield return new WaitForSeconds(seconds + 2);
+        yield return new WaitForSeconds(seconds);
 
         SceneManager.LoadScene("GameOver2");
     }
@@ -28,7 +28,7 @@ public class GameOverManager : MonoBehaviour
     IEnumerator FadeOut()
     {
         float elapsedTime = 0f;
-        float fadeTime = 3f;
+        float fadeTime = 1f;
 
         Color color = image.color;
 
@@ -50,7 +50,7 @@ public class GameOverManager : MonoBehaviour
     IEnumerator FadeIn()
     {
         float elapsedTime = 0f;
-        float fadeTime = 3f;
+        float fadeTime = 1f;
 
         Color color = image.color;
 
