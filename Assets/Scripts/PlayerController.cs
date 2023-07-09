@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     GameObject[] shoulders;
     GameObject activeShoulder;
     SpriteRenderer[] renderers;
+    public GameObject L_Target;
+    public GameObject R_Target;
+    private Vector3 mousePosition;
+    public float moveSpeed = 0.1f;
 
     //For changing shoulder active/inactive sprites
     public GameObject L_ForeArm;
@@ -26,7 +30,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer L_ArmRenderer;
     SpriteRenderer R_ArmRenderer;
     SpriteRenderer R_ForeArmRenderer;
-    
+    [SerializeField] float returnScale;
     
 
     [SerializeField]
@@ -34,7 +38,6 @@ public class PlayerController : MonoBehaviour
     float rotationSpeed;
     [SerializeField]float innerAngle;
     [SerializeField]float outerAngle;
-    [SerializeField] float returnScale;
     // Raise Modifier = +-1 and is used to make sure the active arm always moves upward when scrolling up
     float raiseModifier;
     Quaternion leftIdleRotation;
@@ -47,16 +50,11 @@ public class PlayerController : MonoBehaviour
     {
         /*this.rotationSpeed = playerSettings.rotationSpeed;
         this.outerAngle = playerSettings.outerAngle;
-<<<<<<< HEAD
-        this.innerAngle = playerSettings.innerAngle;*/
-=======
-        this.innerAngle = playerSettings.innerAngle;
         this.returnScale = playerSettings.returnScale;
->>>>>>> 0d00a87 (Damage Implemented)
         leftIdleRotation = shoulders[0].transform.rotation;
         rightIdleRotation = shoulders[1].transform.rotation;
         activeShoulder = shoulders[0];
-        activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
+        activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);*/
         raiseModifier = 1;
 
         //For changing shoulder active/inactive sprites    
@@ -71,37 +69,44 @@ public class PlayerController : MonoBehaviour
     }
     void Update()     
     {
+        if (Input.GetMouseButton(0)) {
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            L_Target.transform.position = Vector2.Lerp(L_Target.transform.position, mousePosition, moveSpeed);
+        }else if (Input.GetMouseButton(1)) {
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            R_Target.transform.position = Vector2.Lerp(R_Target.transform.position, mousePosition, moveSpeed);
+        }
+        
         SelectArm();
-<<<<<<< HEAD
-        // Moves the selected arm
-        shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, Time.deltaTime);
-        shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, Time.deltaTime);
-=======
         // Returns arm to idle position
         shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);
         shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, returnScale*Time.deltaTime);
->>>>>>> 0d00a87 (Damage Implemented)
-
+/*
         if (Input.GetKey(KeyCode.Space)){
             Debug.Log("Space Pressed");
             activeShoulder.transform.Rotate(rotationSpeed * raiseModifier * Vector3.forward);
             currentRotation = activeShoulder.transform.rotation.eulerAngles;
+
+            */
             if (activeShoulder == shoulders[0])
             {
-                ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
+                //ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
             }
 
             if (activeShoulder == shoulders[1])
             {
-                ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
-                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle*-1, 360 - outerAngle*-1);
+                //ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
             }
 
-            activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
+          //  activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
 
-        }
+       // }
 
+      //  if(L_Target.transform.localPosition.x > )
         if (shoulders[0].transform.rotation == leftIdleRotation && ArmInContactWithFloor.LeftArmIsInContactWithFloor == false)
             ArmInContactWithFloor.LeftArmIsInContactWithFloor = true;
 
