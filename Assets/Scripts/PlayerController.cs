@@ -9,6 +9,26 @@ public class PlayerController : MonoBehaviour
     GameObject activeShoulder;
     SpriteRenderer[] renderers;
 
+    //For changing shoulder active/inactive sprites
+    public GameObject L_ForeArm;
+    public GameObject R_ForeArm;
+    public GameObject L_Arm;
+    public GameObject R_Arm;
+    public Sprite L_ForeArmOFF;
+    public Sprite L_ArmOFF;
+    public Sprite R_ForeArmOFF;
+    public Sprite R_ArmOFF;
+    public Sprite L_ForeArmON;
+    public Sprite L_ArmON;
+    public Sprite R_ForeArmON;
+    public Sprite R_ArmON;
+    SpriteRenderer L_ForeArmRenderer;
+    SpriteRenderer L_ArmRenderer;
+    SpriteRenderer R_ArmRenderer;
+    SpriteRenderer R_ForeArmRenderer;
+    
+    
+
     [SerializeField]
     SO_PlayerSettings playerSettings;
     float rotationSpeed;
@@ -32,6 +52,12 @@ public class PlayerController : MonoBehaviour
         activeShoulder = shoulders[0];
         activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
         raiseModifier = 1;
+
+        //For changing shoulder active/inactive sprites    
+        L_ArmRenderer = L_Arm.GetComponent<SpriteRenderer>();
+        L_ForeArmRenderer = L_ForeArm.GetComponent<SpriteRenderer>();
+        R_ArmRenderer = R_Arm.GetComponent<SpriteRenderer>();
+        R_ForeArmRenderer = R_ForeArm.GetComponent<SpriteRenderer>();
     }
     void FixedUpdate()
     {
@@ -57,7 +83,7 @@ public class PlayerController : MonoBehaviour
             if (activeShoulder == shoulders[1])
             {
                 ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
-                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle *-1, 360 - outerAngle *-1);
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle*-1, 360 - outerAngle*-1);
             }
 
             activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
@@ -93,6 +119,10 @@ public class PlayerController : MonoBehaviour
         {
             activeShoulder = shoulders[0];
             raiseModifier = 1;
+            L_ArmRenderer.sprite = L_ArmON;
+            L_ForeArmRenderer.sprite = L_ForeArmON;
+            R_ArmRenderer.sprite = R_ArmOFF;
+            R_ForeArmRenderer.sprite = R_ForeArmOFF;
         }
 
         // The same with the right mouse click and right arm
@@ -100,6 +130,10 @@ public class PlayerController : MonoBehaviour
         {
             activeShoulder = shoulders[1];
             raiseModifier = -1;
+            L_ArmRenderer.sprite = L_ArmOFF;
+            L_ForeArmRenderer.sprite = L_ForeArmOFF;
+            R_ArmRenderer.sprite = R_ArmON;
+            R_ForeArmRenderer.sprite = R_ForeArmON;
         }
     }
    
