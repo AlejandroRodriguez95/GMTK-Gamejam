@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Edward 2.unity.meta
 guid: fe6d1b4951a25b1499a3e5b1c5887203
+========
+guid: 30b18c5ffbe332d4388a40f7e0381a8b
+>>>>>>>> main:Assets/Scenes/AudioTest.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
