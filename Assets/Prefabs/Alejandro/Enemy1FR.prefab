@@ -191,7 +191,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentWaypoint: {fileID: 0}
   currentWaypointIndex: 0
-  shakeDamageScale: 0.1
+  shakeDamageScale: 0.15
   chipDamage: 30
 --- !u!50 &8464510934691822029
 Rigidbody2D:
