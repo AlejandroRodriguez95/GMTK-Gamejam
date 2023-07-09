@@ -22,6 +22,7 @@ public class EnemyType1 : EnemyBase
     Rigidbody2D rb2d;
     [SerializeField] private AudioClip[] deathSounds;
     private AudioSource source;
+    private bool gameOver;
 
     public float ChipDamage
     {
@@ -79,8 +80,12 @@ public class EnemyType1 : EnemyBase
                 LoadNextWaypointsSegment();
             else
             {
-                gameOverImage.gameObject.SetActive(true);
-                StartCoroutine(FadeOutAfter(2));
+                if (!gameOver)
+                {
+                    gameOverImage.gameObject.SetActive(true);
+                    gameOver = true;
+                    StartCoroutine(FadeOutAfter(0));
+                }
             }
 
             return;
@@ -213,7 +218,7 @@ public class EnemyType1 : EnemyBase
         yield return new WaitForSeconds(seconds + 2);
         StartCoroutine(FadeOut());
 
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds + 4);
 
         SceneManager.LoadScene("GameOver");
     }
