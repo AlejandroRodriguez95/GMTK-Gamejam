@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         timeFactor = 5;
-        speedSeed = 0.2f;
+        speedSeed = 0.1f;
         StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false, leftArm, speedSeed * Random.Range(1, 1.4f), gameOverimage));
         StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true, rightArm, speedSeed * Random.Range(1, 1.4f), gameOverimage));
     }
@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         tempEnemy.ArmTransform = arm;
         tempEnemy.MoveSpeed = Mathf.Pow(speedSeed,2);
         timeFactor *= Mathf.Sqrt(0.99f);
-        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor, waypoints, pos, enemy, side, arm, speedSeed * Random.Range(0.4f,10f), gameoverimage));
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor, waypoints, pos, enemy, side, arm, speedSeed * Random.Range(0.5f,2f), gameoverimage));
     }
 
 }
