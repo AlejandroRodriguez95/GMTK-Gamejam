@@ -17,7 +17,8 @@ public class EnemyType1 : EnemyBase
     [SerializeField]
     float chipDamage;
     Rigidbody2D rb2d;
-
+    [SerializeField] private AudioClip[] deathSounds;
+    private AudioSource source;
 
 
 
@@ -32,6 +33,11 @@ public class EnemyType1 : EnemyBase
             currentWaypoint = internalWaypoints[currentWaypointIndex];
             currentWaypointIndex++;
         }
+
+        // audio setup
+        this.source = gameObject.GetComponent<AudioSource>();
+        this.source.clip = this.deathSounds[Random.Range(0, deathSounds.Length)];
+        this.source.volume = 0.5f;
 
     }
 
@@ -174,6 +180,7 @@ public class EnemyType1 : EnemyBase
         float magnitude = Random.Range(10, 20);
         Vector3 force = magnitude * new Vector3(Mathf.Cos(angle),Mathf.Sin(angle),0);
         rb2d.AddForce(force, ForceMode2D.Impulse);
+        this.source.PlayOneShot(this.source.clip);
         yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
