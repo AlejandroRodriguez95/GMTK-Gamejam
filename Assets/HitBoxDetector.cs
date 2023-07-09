@@ -14,6 +14,11 @@ public class HitBoxDetector : MonoBehaviour
         {
             ArmInContactWithFloor.RightArmIsInContactWithFloor = true;
         }
+        if (collision.CompareTag("Enemy") && collision.gameObject.transform.parent == null)
+        {
+            EnemyType1 enemy = collision.gameObject.GetComponent<EnemyType1>();
+            enemy.CurrentHealth -= enemy.ChipDamage;
+        }
     }
 
 

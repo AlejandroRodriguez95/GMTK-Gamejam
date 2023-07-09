@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 6349443804534754395}
   m_Layer: 3
   m_Name: Enemy1FR
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   internalWaypoints:
   - {fileID: 0}
   currentWaypoint: {fileID: 0}
+  gameOverImage: {fileID: 0}
   sfxManager: {fileID: 0}
   currentWaypointIndex: 0
   shakeDamageScale: 0.15

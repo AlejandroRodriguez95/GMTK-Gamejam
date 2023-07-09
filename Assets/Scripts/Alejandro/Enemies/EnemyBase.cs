@@ -41,6 +41,13 @@ public abstract class EnemyBase : MonoBehaviour
         set { side = value; }
     }
 
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set { currentHealth = value; }
+    }
+
+
     public List<Transform> InternalWaypoints
     {
         set { internalWaypoints = value; }

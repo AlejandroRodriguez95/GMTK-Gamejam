@@ -23,6 +23,11 @@ public class EnemyType1 : EnemyBase
     [SerializeField] private AudioClip[] deathSounds;
     private AudioSource source;
 
+    public float ChipDamage
+    {
+        get { return chipDamage; }
+        set { chipDamage = value; }
+    }
 
 
     private void Start()
