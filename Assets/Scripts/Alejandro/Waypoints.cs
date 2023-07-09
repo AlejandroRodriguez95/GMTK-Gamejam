@@ -56,6 +56,8 @@ public class Waypoints : MonoBehaviour
         leftCount = leftGameObject.transform.childCount;
         leftArmCount = leftArmWaypointsGameObject.transform.childCount;
         rightArmCount = rightArmWaypointsGameObject.transform.childCount;
+        leftForeArmCount = leftForeArmWaypointsGameObject.transform.childCount;
+        rightForeArmCount = rightForeArmWaypointsGameObject.transform.childCount;
         rightCount = rightGameObject.transform.childCount;
         lastSegmentLeftCount = lastSegmentLeftGO.transform.childCount;
         lastSegmentRightCount = lastSegmentRightGO.transform.childCount;
@@ -75,12 +77,12 @@ public class Waypoints : MonoBehaviour
             LeftArmWaypoints.Add(leftArmWaypointsGameObject.transform.GetChild(i));
         }
 
-        for(int i=0; i < rightArmCount; i++)
+        for(int i=0; i < rightForeArmCount; i++)
         {
             RightForeArmWaypoints.Add(rightForeArmWaypointsGameObject.transform.GetChild(i));
         }        
         
-        for(int i=0; i < leftArmCount; i++)
+        for(int i=0; i < leftForeArmCount; i++)
         {
             LeftForeArmWaypoints.Add(leftForeArmWaypointsGameObject.transform.GetChild(i));
         }

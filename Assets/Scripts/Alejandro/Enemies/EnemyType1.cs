@@ -110,7 +110,7 @@ public class EnemyType1 : EnemyBase
                 {
                     internalWaypoints = Waypoints.RightArmWaypoints;
                     mustUpdateDirection = true;
-                    transform.parent = armTransform;
+                    //transform.parent = armTransform;
                 }
                 else
                 {

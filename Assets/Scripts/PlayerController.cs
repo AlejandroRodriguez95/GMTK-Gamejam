@@ -41,11 +41,11 @@ public class PlayerController : MonoBehaviour
     {
         SelectArm();
         // Moves the selected arm
-
         shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, Time.deltaTime);
         shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, Time.deltaTime);
 
         if (Input.GetKey(KeyCode.Space)){
+            Debug.Log("Space Pressed");
             activeShoulder.transform.Rotate(rotationSpeed * raiseModifier * Vector3.forward);
             currentRotation = activeShoulder.transform.rotation.eulerAngles;
             if (activeShoulder == shoulders[0])
