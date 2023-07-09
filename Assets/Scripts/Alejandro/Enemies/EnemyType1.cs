@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class EnemyType1 : EnemyBase
 {
-    Vector3 direction;
+
     public int currentWaypointIndex;
     Transform lastWaypoint;
     bool mustUpdateDirection;
+    Vector3 lastPosition;
+    bool alive;
+    float shakeDamageScale;
+    float chipDamage;
 
 
 
 
     private void Start()
     {
+        alive = true;
+
         currentWaypointIndex = 0;
 
         if(internalWaypoints.Count > 0)
         {
             currentWaypoint = internalWaypoints[currentWaypointIndex];
-            direction = currentWaypoint.position - transform.position;
-            direction.Normalize();
             currentWaypointIndex++;
         }
 
@@ -28,23 +32,18 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime*10));
-        if(currentWaypointIndex <= internalWaypoints.Count)
-            MoveToWayPoint();
-    }
+        if (alive) {
+            lastPosition = transform.position;
+            transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 10));
 
+            TakeDamage();
+            if (currentHealth <= 0) {
+                StartCoroutine(Die());
+                alive = false;
+            }
 
-    private void MoveToWayPoint()
-    {
-        if (mustUpdateDirection)
-        {
-            direction = currentWaypoint.localPosition - transform.localPosition;
         }
 
-
-        Vector3 movement = direction * moveSpeed * Time.deltaTime;
-
-        //transform.Translate(movement);
     }
 
 
@@ -67,10 +66,6 @@ public class EnemyType1 : EnemyBase
 
         currentWaypoint = internalWaypoints[currentWaypointIndex];
         currentWaypointIndex++;
-        
-
-        direction = currentWaypoint.position - transform.position;
-        direction.Normalize();
     }
 
     private void LoadNextWaypointsSegment()
@@ -85,7 +80,7 @@ public class EnemyType1 : EnemyBase
                 {
                     internalWaypoints = Waypoints.LeftForeArmWaypoints;
                     mustUpdateDirection = true;
-                    //transform.parent = armTransform;
+                    transform.parent = armTransform;
                 }
                 else
                 {
@@ -136,8 +131,32 @@ public class EnemyType1 : EnemyBase
 
         currentWaypoint = internalWaypoints[currentWaypointIndex];
         currentWaypointIndex++;
+    }
 
-        direction = currentWaypoint.position - transform.position;
-        direction.Normalize();
+    void TakeDamage() {
+        Vector2 direction = (currentWaypoint.position - transform.position).normalized;
+        Vector2 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        try
+        {
+            if(transform.parent.gameObject.CompareTag("Arm"))
+            currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
+        }
+        catch { }
+        
+
+    }
+
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arm") && transform.parent==null)
+        {
+            currentHealth -= chipDamage;
+        }
     }
 }
