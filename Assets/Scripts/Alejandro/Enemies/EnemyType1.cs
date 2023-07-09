@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyType1 : EnemyBase
 {
 
+    public GameObject sfxManager;
+
     public int currentWaypointIndex;
     Transform lastWaypoint;
     bool mustUpdateDirection;
