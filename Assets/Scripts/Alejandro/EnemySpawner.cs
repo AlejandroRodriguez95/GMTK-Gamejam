@@ -17,20 +17,20 @@ public class EnemySpawner : MonoBehaviour
 
     int iterations;
 
-    float speedFactor;
+    float speedSeed;
     float timeFactor;
 
 
     private void Start()
     {
         timeFactor = 5;
-        speedFactor = 0.2f;
-        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false, leftArm, speedFactor * Random.Range(1, 1.4f), gameOverimage));
-        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true, rightArm, speedFactor * Random.Range(1, 1.4f), gameOverimage));
+        speedSeed = 0.2f;
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false, leftArm, speedSeed * Random.Range(1, 1.4f), gameOverimage));
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true, rightArm, speedSeed * Random.Range(1, 1.4f), gameOverimage));
     }
 
 
-    IEnumerator SpawnEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy, bool side, Transform arm, float moveSpeed, SpriteRenderer gameoverimage)
+    IEnumerator SpawnEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy, bool side, Transform arm, float speedSeed, SpriteRenderer gameoverimage)
     {
         yield return new WaitForSeconds(seconds);
 
@@ -40,10 +40,9 @@ public class EnemySpawner : MonoBehaviour
         tempEnemy.InternalWaypoints = waypoints;
         tempEnemy.Side = side;
         tempEnemy.ArmTransform = arm;
-        tempEnemy.MoveSpeed = moveSpeed;
-        speedFactor *= Mathf.Sqrt(1.5f);
-        timeFactor *= Mathf.Sqrt(0.9f);
-        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), waypoints, pos, enemy, side, arm, speedFactor * Random.Range(1, 1.4f), gameoverimage));
+        tempEnemy.MoveSpeed = Mathf.Pow(speedSeed,2);
+        timeFactor *= Mathf.Sqrt(0.925f);
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor, waypoints, pos, enemy, side, arm, speedSeed * Random.Range(0.4f,10f), gameoverimage));
     }
 
 }

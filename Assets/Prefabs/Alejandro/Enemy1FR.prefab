@@ -194,7 +194,7 @@ MonoBehaviour:
   gameOverImage: {fileID: 0}
   sfxManager: {fileID: 0}
   currentWaypointIndex: 0
-  shakeDamageScale: 0.15
+  shakeDamageScale: 0.05
   chipDamage: 30
   deathSounds:
   - {fileID: 8300000, guid: bba5ed8a4a0a26a49acb472dc2d05941, type: 3}

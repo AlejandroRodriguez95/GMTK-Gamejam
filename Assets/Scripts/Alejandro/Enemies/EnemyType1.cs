@@ -151,8 +151,8 @@ public class EnemyType1 : EnemyBase
                 else
                 {
                     internalWaypoints = Waypoints.SecondSegmentRight;
-                    alreadyLoadedThirdSegment = true;
                     transform.parent = null;
+                    alreadyLoadedThirdSegment = true;
                 }
             }
             else
@@ -165,7 +165,9 @@ public class EnemyType1 : EnemyBase
                 else
                 {
                     internalWaypoints = Waypoints.LastSegmentRight;
+                    mustUpdateDirection = false;
                     alreadyLoadedLastSegment = true;
+                    transform.parent = null;
                 }
             }
         }
@@ -215,10 +217,10 @@ public class EnemyType1 : EnemyBase
 
     IEnumerator FadeOutAfter(float seconds)
     {
-        yield return new WaitForSeconds(seconds + 2);
+        yield return new WaitForSeconds(seconds + .5f);
         StartCoroutine(FadeOut());
 
-        yield return new WaitForSeconds(seconds + 4);
+        yield return new WaitForSeconds(seconds + .5f);
 
         SceneManager.LoadScene("GameOver");
     }
@@ -226,7 +228,7 @@ public class EnemyType1 : EnemyBase
     IEnumerator FadeOut()
     {
         float elapsedTime = 0f;
-        float fadeTime = 3f;
+        float fadeTime = .5f;
 
         Color color = gameOverImage.color;
 
@@ -248,7 +250,7 @@ public class EnemyType1 : EnemyBase
     IEnumerator FadeIn()
     {
         float elapsedTime = 0f;
-        float fadeTime = 3f;
+        float fadeTime = .5f;
 
         Color color = gameOverImage.color;
 
