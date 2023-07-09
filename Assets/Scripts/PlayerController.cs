@@ -44,9 +44,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*this.rotationSpeed = playerSettings.rotationSpeed;
+        this.rotationSpeed = playerSettings.rotationSpeed;
         this.outerAngle = playerSettings.outerAngle;
-        this.innerAngle = playerSettings.innerAngle;*/
+        this.innerAngle = playerSettings.innerAngle;
         leftIdleRotation = shoulders[0].transform.rotation;
         rightIdleRotation = shoulders[1].transform.rotation;
         activeShoulder = shoulders[0];
@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
         L_ForeArmRenderer = L_ForeArm.GetComponent<SpriteRenderer>();
         R_ArmRenderer = R_Arm.GetComponent<SpriteRenderer>();
         R_ForeArmRenderer = R_ForeArm.GetComponent<SpriteRenderer>();
+        L_ArmRenderer.sprite = L_ArmON;
+        L_ForeArmRenderer.sprite = L_ForeArmON;
+        R_ArmRenderer.sprite = R_ArmOFF;
+        R_ForeArmRenderer.sprite = R_ForeArmOFF;
     }
     void FixedUpdate()
     {
@@ -66,7 +70,7 @@ public class PlayerController : MonoBehaviour
     void Update()     
     {
         SelectArm();
-        // Moves the selected arm
+        // Returns arm to idle position
         shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, Time.deltaTime);
         shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, Time.deltaTime);
 
@@ -74,16 +78,17 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Space Pressed");
             activeShoulder.transform.Rotate(rotationSpeed * raiseModifier * Vector3.forward);
             currentRotation = activeShoulder.transform.rotation.eulerAngles;
-            if (activeShoulder == shoulders[0])
+            
+           if (activeShoulder == shoulders[0])
             {
                 ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
             }
 
-            if (activeShoulder == shoulders[1])
+           if (activeShoulder == shoulders[1])
             {
                 ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
-                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle*-1, 360 - outerAngle*-1);
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
             }
 
             activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
