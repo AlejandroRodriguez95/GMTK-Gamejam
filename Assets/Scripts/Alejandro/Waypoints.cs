@@ -5,29 +5,47 @@ using UnityEngine;
 public class Waypoints : MonoBehaviour 
 {
     public static List<Transform> LeftWaypoints;
-    public static List<Transform> LeftArmWaypoints;
     public static List<Transform> RightWaypoints;
+
+    public static List<Transform> LeftForeArmWaypoints;
+    public static List<Transform> RightForeArmWaypoints;
+
+    public static List<Transform> LeftArmWaypoints;
     public static List<Transform> RightArmWaypoints;
+    
     public static List<Transform> SecondSegmentLeft;
     public static List<Transform> SecondSegmentRight;
-    public static List<Transform> LastSegmentRight;
+    
     public static List<Transform> LastSegmentLeft;
+    public static List<Transform> LastSegmentRight;
 
     [SerializeField] GameObject leftArmWaypointsGameObject;
-    [SerializeField] GameObject leftGameObject;
     [SerializeField] GameObject rightArmWaypointsGameObject;
+
+    [SerializeField] GameObject leftForeArmWaypointsGameObject;
+    [SerializeField] GameObject rightForeArmWaypointsGameObject;
+    
     [SerializeField] GameObject rightGameObject;
+    [SerializeField] GameObject leftGameObject;
+    
     [SerializeField] GameObject secondSegmentLeft;
     [SerializeField] GameObject secondSegmentRight;
-    [SerializeField] GameObject lastSegmentRightGO;
+    
     [SerializeField] GameObject lastSegmentLeftGO;
+    [SerializeField] GameObject lastSegmentRightGO;
 
     int leftCount;
+    int rightCount;
+    
     int leftArmCount;
     int rightArmCount;
-    int rightCount;
+    
+    int leftForeArmCount;
+    int rightForeArmCount;
+    
     int secondSegmentLeftCount;
     int secondSegmentRightCount;
+    
     int lastSegmentLeftCount;
     int lastSegmentRightCount;
 
@@ -35,20 +53,32 @@ public class Waypoints : MonoBehaviour
     {
         LeftWaypoints = new List<Transform>();
         RightWaypoints = new List<Transform>();
+
         LeftArmWaypoints = new List<Transform>();
         RightArmWaypoints = new List<Transform>();
+
+        LeftForeArmWaypoints = new List<Transform>();
+        RightForeArmWaypoints = new List<Transform>();
+
         SecondSegmentLeft = new List<Transform>();
         SecondSegmentRight = new List<Transform>();
+
         LastSegmentLeft = new List<Transform>();
         LastSegmentRight = new List<Transform>();
         
 
         secondSegmentLeftCount = secondSegmentLeft.transform.childCount;
         secondSegmentRightCount = secondSegmentRight.transform.childCount;
+
         leftCount = leftGameObject.transform.childCount;
+        rightCount = rightGameObject.transform.childCount;
+
         leftArmCount = leftArmWaypointsGameObject.transform.childCount;
         rightArmCount = rightArmWaypointsGameObject.transform.childCount;
-        rightCount = rightGameObject.transform.childCount;
+
+        leftForeArmCount = leftForeArmWaypointsGameObject.transform.childCount;
+        rightForeArmCount = rightForeArmWaypointsGameObject.transform.childCount;
+
         lastSegmentLeftCount = lastSegmentLeftGO.transform.childCount;
         lastSegmentRightCount = lastSegmentRightGO.transform.childCount;
 
@@ -65,6 +95,16 @@ public class Waypoints : MonoBehaviour
         for(int i=0; i < leftArmCount; i++)
         {
             LeftArmWaypoints.Add(leftArmWaypointsGameObject.transform.GetChild(i));
+        }
+
+        for(int i=0; i < rightForeArmCount; i++)
+        {
+            RightForeArmWaypoints.Add(rightForeArmWaypointsGameObject.transform.GetChild(i));
+        }        
+        
+        for(int i=0; i < leftForeArmCount; i++)
+        {
+            LeftForeArmWaypoints.Add(leftForeArmWaypointsGameObject.transform.GetChild(i));
         }
         
         for(int i=0; i<secondSegmentLeftCount; i++)
@@ -91,5 +131,7 @@ public class Waypoints : MonoBehaviour
         {
             RightWaypoints.Add(rightGameObject.transform.GetChild(i));
         }
+
+        
     }
 }

@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class EnemyType1 : EnemyBase
 {
-    Vector3 direction;
+
     public int currentWaypointIndex;
     Transform lastWaypoint;
     bool mustUpdateDirection;
+    Vector3 lastPosition;
+    bool alive;
+    float shakeDamageScale;
+    float chipDamage;
 
 
 
 
     private void Start()
     {
+        alive = true;
+
         currentWaypointIndex = 0;
 
         if(internalWaypoints.Count > 0)
         {
             currentWaypoint = internalWaypoints[currentWaypointIndex];
-            direction = currentWaypoint.position - transform.position;
-            direction.Normalize();
             currentWaypointIndex++;
         }
 
@@ -28,23 +32,18 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime*10));
-        if(currentWaypointIndex <= internalWaypoints.Count)
-            MoveToWayPoint();
-    }
+        if (alive) {
+            lastPosition = transform.position;
+            transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 10));
 
+            TakeDamage();
+            if (currentHealth <= 0) {
+                StartCoroutine(Die());
+                alive = false;
+            }
 
-    private void MoveToWayPoint()
-    {
-        if (mustUpdateDirection)
-        {
-            direction = currentWaypoint.localPosition - transform.localPosition;
         }
 
-
-        Vector3 movement = direction * moveSpeed * Time.deltaTime;
-
-        //transform.Translate(movement);
     }
 
 
@@ -67,40 +66,50 @@ public class EnemyType1 : EnemyBase
 
         currentWaypoint = internalWaypoints[currentWaypointIndex];
         currentWaypointIndex++;
-        
-
-        direction = currentWaypoint.position - transform.position;
-        direction.Normalize();
     }
 
     private void LoadNextWaypointsSegment()
     {
-        if(side == false)
+        if (alreadyLoadedLastSegment)
+            return;
+
+        if(side == false)  // if left side
         {
-            if (!alreadyLoadedSecondSegment)
+            if (!alreadyLoadedSecondSegment) // has second segment been loaded? (forearm or body)
             {
                 alreadyLoadedSecondSegment = true;
 
-                if (ArmInContactWithFloor.LeftArmIsInContactWithFloor)
+                if (ArmInContactWithFloor.LeftArmIsInContactWithFloor) // if arm is in idle pos
                 {
-                    internalWaypoints = Waypoints.LeftArmWaypoints;
+                    internalWaypoints = Waypoints.LeftForeArmWaypoints;
                     mustUpdateDirection = true;
                     transform.parent = armTransform;
                 }
-                else
+                else // arm is not idle, then go through
                 {
                     internalWaypoints = Waypoints.SecondSegmentLeft;
                     transform.parent = null;
+                    alreadyLoadedThirdSegment = true;
                 }
             }
-            else
+            else // if already past the first segment
             {
-                internalWaypoints = Waypoints.LastSegmentLeft;
-                mustUpdateDirection = false;
-                alreadyLoadedLastSegment = true;
+                if (!alreadyLoadedThirdSegment)
+                {
+                    alreadyLoadedThirdSegment = true;
+                    internalWaypoints = Waypoints.LeftArmWaypoints;
+                }
+
+                else
+                {
+                    internalWaypoints = Waypoints.LastSegmentLeft;
+                    mustUpdateDirection = false;
+                    alreadyLoadedLastSegment = true;
+                    transform.parent = null;
+                }
             }
         }
-        else
+        else // if right side
         {
             if (!alreadyLoadedSecondSegment)
             {
@@ -108,20 +117,29 @@ public class EnemyType1 : EnemyBase
 
                 if (ArmInContactWithFloor.RightArmIsInContactWithFloor)
                 {
-                    internalWaypoints = Waypoints.RightArmWaypoints;
+                    internalWaypoints = Waypoints.RightForeArmWaypoints;
                     mustUpdateDirection = true;
                     transform.parent = armTransform;
                 }
                 else
                 {
                     internalWaypoints = Waypoints.SecondSegmentRight;
+                    alreadyLoadedThirdSegment = true;
                     transform.parent = null;
                 }
             }
             else
             {
-                internalWaypoints = Waypoints.LastSegmentRight;
-                alreadyLoadedLastSegment = true;
+                if (!alreadyLoadedThirdSegment)
+                {
+                    alreadyLoadedThirdSegment=true;
+                    internalWaypoints = Waypoints.RightArmWaypoints;
+                }
+                else
+                {
+                    internalWaypoints = Waypoints.LastSegmentRight;
+                    alreadyLoadedLastSegment = true;
+                }
             }
         }
 
@@ -129,8 +147,32 @@ public class EnemyType1 : EnemyBase
 
         currentWaypoint = internalWaypoints[currentWaypointIndex];
         currentWaypointIndex++;
+    }
 
-        direction = currentWaypoint.position - transform.position;
-        direction.Normalize();
+    void TakeDamage() {
+        Vector2 direction = (currentWaypoint.position - transform.position).normalized;
+        Vector2 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        try
+        {
+            if(transform.parent.gameObject.CompareTag("Arm"))
+            currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
+        }
+        catch { }
+        
+
+    }
+
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arm") && transform.parent==null)
+        {
+            currentHealth -= chipDamage;
+        }
     }
 }

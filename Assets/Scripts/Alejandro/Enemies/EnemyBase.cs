@@ -6,7 +6,7 @@ public abstract class EnemyBase : MonoBehaviour
 {
     [SerializeField] SO_EnemySettings settings;
 
-    protected int currentHealth;
+    protected float currentHealth;
     protected float moveSpeed;
 
     [SerializeField] protected List<Transform> internalWaypoints;
@@ -15,6 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected Transform currentWaypoint;
 
     protected bool alreadyLoadedSecondSegment;
+    protected bool alreadyLoadedThirdSegment;
     protected bool alreadyLoadedLastSegment;
     protected bool side; // false = left, true = right
 

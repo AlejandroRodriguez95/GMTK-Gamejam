@@ -178,6 +178,7 @@ MonoBehaviour:
   rotationSpeed: 0
   innerAngle: 90
   outerAngle: 165
+  currentRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &352966894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1071312199201702114, guid: 5465121306a011645843dfd71020f86f, type: 3}
