@@ -5,21 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 3200519db69ce8b47af1e0e0d07f8778
+    path: Assets/Scenes/StartScreen.unity
+    guid: ba421ac88161a3440b3639c327b6c2cd
   - enabled: 1
-    path: Assets/Scenes/AudioTest.unity
-    guid: 30b18c5ffbe332d4388a40f7e0381a8b
-  - enabled: 0
     path: Assets/Scenes/Final.unity
-    guid: 73c37e2c064d307439ebcd1909987337
-  - enabled: 0
-    path: Assets/Scenes/Edward 2.unity
-    guid: fe6d1b4951a25b1499a3e5b1c5887203
+    guid: 769f0537fb2644649aee09621e035303
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: e8f8f69d2b5ee0a4c8386f253ce2821e
