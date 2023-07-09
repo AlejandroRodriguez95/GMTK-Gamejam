@@ -15,6 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected Transform currentWaypoint;
 
     protected bool alreadyLoadedSecondSegment;
+    protected bool alreadyLoadedThirdSegment;
     protected bool alreadyLoadedLastSegment;
     protected bool side; // false = left, true = right
 

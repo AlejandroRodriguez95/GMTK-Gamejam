@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.rotationSpeed = playerSettings.rotationSpeed;
+        /*this.rotationSpeed = playerSettings.rotationSpeed;
         this.outerAngle = playerSettings.outerAngle;
-        this.innerAngle = playerSettings.innerAngle;
+        this.innerAngle = playerSettings.innerAngle;*/
         leftIdleRotation = shoulders[0].transform.rotation;
         rightIdleRotation = shoulders[1].transform.rotation;
         activeShoulder = shoulders[0];
@@ -51,13 +51,13 @@ public class PlayerController : MonoBehaviour
             if (activeShoulder == shoulders[0])
             {
                 ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
-                //currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
+                currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
             }
 
             if (activeShoulder == shoulders[1])
             {
                 ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
-                //currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle *-1, 360 - outerAngle *-1);
             }
 
             activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);

@@ -108,9 +108,16 @@ public class EnemyType1 : EnemyBase
 
                 if (ArmInContactWithFloor.RightArmIsInContactWithFloor)
                 {
-                    internalWaypoints = Waypoints.RightArmWaypoints;
+                    internalWaypoints = Waypoints.RightForeArmWaypoints;
                     mustUpdateDirection = true;
-                    //transform.parent = armTransform;
+                    
+                   /* if (!alreadyLoadedThirdSegment)
+                    {
+                        alreadyLoadedThirdSegment = true;
+                        internalWaypoints = Waypoints.RightArmWaypoints;
+                        mustUpdateDirection = true;
+
+                    }*/
                 }
                 else
                 {
