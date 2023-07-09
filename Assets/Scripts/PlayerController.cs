@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     float rotationSpeed;
     [SerializeField]float innerAngle;
     [SerializeField]float outerAngle;
+    [SerializeField] float returnScale;
     // Raise Modifier = +-1 and is used to make sure the active arm always moves upward when scrolling up
     float raiseModifier;
     Quaternion leftIdleRotation;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
         this.rotationSpeed = playerSettings.rotationSpeed;
         this.outerAngle = playerSettings.outerAngle;
         this.innerAngle = playerSettings.innerAngle;
+        this.returnScale = playerSettings.returnScale;
         leftIdleRotation = shoulders[0].transform.rotation;
         rightIdleRotation = shoulders[1].transform.rotation;
         activeShoulder = shoulders[0];
@@ -71,8 +73,8 @@ public class PlayerController : MonoBehaviour
     {
         SelectArm();
         // Returns arm to idle position
-        shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, Time.deltaTime);
-        shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, Time.deltaTime);
+        shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);
+        shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, returnScale*Time.deltaTime);
 
         if (Input.GetKey(KeyCode.Space)){
             Debug.Log("Space Pressed");

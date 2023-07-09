@@ -6,6 +6,7 @@ public abstract class EnemyBase : MonoBehaviour
 {
     [SerializeField] SO_EnemySettings settings;
 
+    [SerializeField]
     protected float currentHealth;
     protected float moveSpeed;
 

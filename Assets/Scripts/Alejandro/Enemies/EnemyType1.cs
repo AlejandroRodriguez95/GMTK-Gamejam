@@ -10,8 +10,11 @@ public class EnemyType1 : EnemyBase
     bool mustUpdateDirection;
     Vector3 lastPosition;
     bool alive;
+    [SerializeField]
     float shakeDamageScale;
+    [SerializeField]
     float chipDamage;
+    Rigidbody2D rb2d;
 
 
 
@@ -19,7 +22,7 @@ public class EnemyType1 : EnemyBase
     private void Start()
     {
         alive = true;
-
+        rb2d = GetComponent<Rigidbody2D>();
         currentWaypointIndex = 0;
 
         if(internalWaypoints.Count > 0)
@@ -155,7 +158,7 @@ public class EnemyType1 : EnemyBase
         try
         {
             if(transform.parent.gameObject.CompareTag("Arm"))
-            currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
+                currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
         }
         catch { }
         
@@ -164,13 +167,18 @@ public class EnemyType1 : EnemyBase
 
     IEnumerator Die()
     {
+        rb2d.gravityScale = 0.5f;
+        float angle = Random.Range(-Mathf.PI/4,5*Mathf.PI/4);
+        float magnitude = Random.Range(10, 20);
+        Vector3 force = magnitude * new Vector3(Mathf.Cos(angle),Mathf.Sin(angle),0);
+        rb2d.AddForce(force, ForceMode2D.Impulse);
         yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Arm") && transform.parent==null)
+        if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null)
         {
             currentHealth -= chipDamage;
         }
