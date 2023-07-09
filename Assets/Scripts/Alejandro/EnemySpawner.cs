@@ -12,25 +12,34 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] GameObject rightEnemyPrefab;
     [SerializeField] Transform rightSpawnPos;
+    int iterations;
+
+    float speedFactor;
+    float timeFactor;
+
 
     private void Start()
     {
-        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false, leftArm));
-        StartCoroutine(SpawnLeftEnemyAfterWaiting(2, Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true, rightArm));
+        timeFactor = 5;
+        speedFactor = 0.2f;
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.LeftWaypoints, leftSpawnPos.position, leftEnemyPrefab, false, leftArm, speedFactor * Random.Range(1, 1.4f)));
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), Waypoints.RightWaypoints, rightSpawnPos.position, rightEnemyPrefab, true, rightArm, speedFactor * Random.Range(1, 1.4f)));
     }
 
 
-    IEnumerator SpawnLeftEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy, bool side, Transform arm)
+    IEnumerator SpawnEnemyAfterWaiting(float seconds, List<Transform> waypoints, Vector3 pos, GameObject enemy, bool side, Transform arm, float moveSpeed)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds);
 
-            var tempEnemy = Instantiate(enemy, pos, Quaternion.identity).GetComponent<EnemyBase>();
+        var tempEnemy = Instantiate(enemy, pos, Quaternion.identity).GetComponent<EnemyBase>();
 
-            tempEnemy.InternalWaypoints = waypoints;
-            tempEnemy.Side = side;
-            tempEnemy.ArmTransform = arm;
-        }
+        tempEnemy.InternalWaypoints = waypoints;
+        tempEnemy.Side = side;
+        tempEnemy.ArmTransform = arm;
+        tempEnemy.MoveSpeed = moveSpeed;
+        speedFactor *= Mathf.Sqrt(1.5f);
+        timeFactor *= Mathf.Sqrt(0.9f);
+        StartCoroutine(SpawnEnemyAfterWaiting(timeFactor * Random.Range(1, 1.4f), waypoints, pos, enemy, side, arm, speedFactor * Random.Range(1, 1.4f)));
     }
+
 }

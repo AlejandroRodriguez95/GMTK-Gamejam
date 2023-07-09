@@ -39,6 +39,11 @@ public abstract class EnemyBase : MonoBehaviour
         set { internalWaypoints = value; }
     }
 
+    public float MoveSpeed
+    {
+        set { moveSpeed = value; }
+    }
+
     private void Awake()
     {
         currentHealth = settings.MaxHealth;
