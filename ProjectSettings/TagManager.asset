@@ -8,6 +8,8 @@ TagManager:
   - HitBoxForHands
   - LeftHandHitbox
   - RightHandHitbox
+  - Enemy
+  - annoyingButton
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public class GameOver2Manager : MonoBehaviour
         StartCoroutine(GoBackToMainMenu());
     }
 
+
     IEnumerator DisplayBannerAndButton()
     {
         yield return new WaitForSeconds(2);
@@ -28,7 +29,6 @@ public class GameOver2Manager : MonoBehaviour
         SceneManager.LoadScene("StartScreen");
     }
 
-
     IEnumerator FadeOutAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
@@ -40,7 +40,7 @@ public class GameOver2Manager : MonoBehaviour
 
     IEnumerator GoBackToMainMenu()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(100);
 
         RestartGame();
     }
