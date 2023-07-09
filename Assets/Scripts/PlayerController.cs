@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject[] shoulders;
     GameObject activeShoulder;
+
     SpriteRenderer[] renderers;
     public GameObject L_Target;
     public GameObject R_Target;
@@ -107,11 +108,11 @@ public class PlayerController : MonoBehaviour
        // }
 
       //  if(L_Target.transform.localPosition.x > )
-        if (shoulders[0].transform.rotation == leftIdleRotation && ArmInContactWithFloor.LeftArmIsInContactWithFloor == false)
-            ArmInContactWithFloor.LeftArmIsInContactWithFloor = true;
+        //if (shoulders[0].transform.rotation == leftIdleRotation && ArmInContactWithFloor.LeftArmIsInContactWithFloor == false)
+        //    ArmInContactWithFloor.LeftArmIsInContactWithFloor = true;
 
-        if (shoulders[1].transform.rotation == rightIdleRotation && ArmInContactWithFloor.RightArmIsInContactWithFloor == false)
-            ArmInContactWithFloor.RightArmIsInContactWithFloor = true;
+        //if (shoulders[1].transform.rotation == rightIdleRotation && ArmInContactWithFloor.RightArmIsInContactWithFloor == false)
+        //    ArmInContactWithFloor.RightArmIsInContactWithFloor = true;
 
 
     }
@@ -153,5 +154,4 @@ public class PlayerController : MonoBehaviour
             R_ForeArmRenderer.sprite = R_ForeArmON;
         }
     }
-   
 }
