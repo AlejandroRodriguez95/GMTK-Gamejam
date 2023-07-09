@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
         tempEnemy.Side = side;
         tempEnemy.ArmTransform = arm;
         tempEnemy.MoveSpeed = Mathf.Pow(speedSeed,2);
-        timeFactor *= Mathf.Sqrt(0.925f);
+        timeFactor *= Mathf.Sqrt(0.99f);
         StartCoroutine(SpawnEnemyAfterWaiting(timeFactor, waypoints, pos, enemy, side, arm, speedSeed * Random.Range(0.4f,10f), gameoverimage));
     }
 
