@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 169687038}
   m_Layer: 0
   m_Name: R_Arm
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -770,7 +770,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.020972937, y: -0.12583691}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -781,7 +781,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7734931, y: 1.2516737}
   m_EdgeRadius: 0
 --- !u!212 &567518767
 SpriteRenderer:
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   - {fileID: 1985636876}
   L_Target: {fileID: 961471129}
   R_Target: {fileID: 102527484}
-  moveSpeed: 0.23
+  moveSpeed: 0.1
   L_ForeArm: {fileID: 8357539484371203081}
   R_ForeArm: {fileID: 8288588970025532772}
   L_Arm: {fileID: 6146150305341529764}
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   L_ArmON: {fileID: 6775378224495919719, guid: 64706d125e7989345b6864b50319bb9e, type: 3}
   R_ForeArmON: {fileID: -139313619945981040, guid: 64706d125e7989345b6864b50319bb9e, type: 3}
   R_ArmON: {fileID: -7640614642847171643, guid: 64706d125e7989345b6864b50319bb9e, type: 3}
-  returnScale: 0
+  returnScale: 1
   playerSettings: {fileID: 0}
   innerAngle: -130
   outerAngle: 90
@@ -1234,7 +1234,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.08808592, y: -0.062918484}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1245,7 +1245,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7567151, y: 1.1258368}
   m_EdgeRadius: 0
 --- !u!212 &1074920148
 SpriteRenderer:
@@ -2345,7 +2345,7 @@ GameObject:
   - component: {fileID: 1601761361}
   m_Layer: 0
   m_Name: L_Arm
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3649,8 +3649,8 @@ GameObject:
   - component: {fileID: 2800530009555063043}
   - component: {fileID: 2800530009555063044}
   m_Layer: 0
-  m_Name: bone_6
-  m_TagString: Untagged
+  m_Name: L_forearmBone
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3683,7 +3683,7 @@ GameObject:
   - component: {fileID: 3284524546084271867}
   m_Layer: 0
   m_Name: L_ForeArmOn
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3737,7 +3737,7 @@ GameObject:
   - component: {fileID: 7994598694300537653}
   m_Layer: 0
   m_Name: R_ForeArmOn
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4272,7 +4272,7 @@ GameObject:
   - component: {fileID: 7083026882772031606}
   m_Layer: 0
   m_Name: R_UpArmOn
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4624,8 +4624,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3907381482490638383}
   m_Layer: 0
-  m_Name: bone_7
-  m_TagString: Untagged
+  m_Name: L_armBone
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4642,8 +4642,8 @@ GameObject:
   - component: {fileID: 8589451495639162115}
   - component: {fileID: 8589451495639162114}
   m_Layer: 0
-  m_Name: bone_9
-  m_TagString: Untagged
+  m_Name: R_armBone
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4815,7 +4815,7 @@ GameObject:
   - component: {fileID: 8161508058931953966}
   m_Layer: 0
   m_Name: R_UpArmOFF
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4863,7 +4863,7 @@ GameObject:
   - component: {fileID: 5753723636726563344}
   m_Layer: 0
   m_Name: L_UpArmOn
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4941,7 +4941,7 @@ GameObject:
   - component: {fileID: 4989307979741363278}
   m_Layer: 0
   m_Name: L_UpArmOFF
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5845,8 +5845,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8737381181037577318}
   m_Layer: 0
-  m_Name: bone_4
-  m_TagString: Untagged
+  m_Name: L_armBone
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5925,7 +5925,7 @@ GameObject:
   - component: {fileID: 8288588970025532773}
   m_Layer: 0
   m_Name: R_ForeArmOFF
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6000,7 +6000,7 @@ GameObject:
   - component: {fileID: 5865237146533334254}
   m_Layer: 0
   m_Name: L_ForeArmOFF
-  m_TagString: Arm
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

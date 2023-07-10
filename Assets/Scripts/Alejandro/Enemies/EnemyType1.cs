@@ -24,6 +24,11 @@ public class EnemyType1 : EnemyBase
     private AudioSource source;
     private bool gameOver;
 
+    public GameObject L_forearmBone;
+    public GameObject L_armBone;
+    public GameObject R_forearmBone;
+    public GameObject R_armBone;
+
     public float ChipDamage
     {
         get { return chipDamage; }
@@ -33,6 +38,11 @@ public class EnemyType1 : EnemyBase
 
     private void Start()
     {
+        L_forearmBone = GameObject.Find("L_forearmBone");
+        L_armBone = GameObject.Find("L_armBone");
+        R_forearmBone = GameObject.Find("R_forearmBone");
+        R_armBone = GameObject.Find("R_armBone");
+
         alive = true;
         rb2d = GetComponent<Rigidbody2D>();
         currentWaypointIndex = 0;
@@ -52,6 +62,8 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
+
+        
         if (alive) {
             lastPosition = transform.position;
             transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 10));
@@ -110,7 +122,9 @@ public class EnemyType1 : EnemyBase
                 {
                     internalWaypoints = Waypoints.LeftForeArmWaypoints;
                     mustUpdateDirection = true;
-                    transform.parent = armTransform;
+
+                    //if(Collision.)
+                    //transform.parent = L_forearmBone.transform;
                 }
                 else // arm is not idle, then go through
                 {
@@ -125,6 +139,7 @@ public class EnemyType1 : EnemyBase
                 {
                     alreadyLoadedThirdSegment = true;
                     internalWaypoints = Waypoints.LeftArmWaypoints;
+                    transform.parent = L_armBone.transform;
                 }
 
                 else
@@ -146,7 +161,7 @@ public class EnemyType1 : EnemyBase
                 {
                     internalWaypoints = Waypoints.RightForeArmWaypoints;
                     mustUpdateDirection = true;
-                    transform.parent = armTransform;
+                    //transform.parent = L_forearmBone.transform;
                 }
                 else
                 {
@@ -208,7 +223,17 @@ public class EnemyType1 : EnemyBase
         if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null)
         {
             currentHealth -= chipDamage;
+            transform.parent = L_forearmBone.transform;
         }
+
+      /*  if (ArmInContactWithFloor.LeftArmIsInContactWithFloor && ) // if arm is in idle pos
+                {
+                    internalWaypoints = Waypoints.LeftForeArmWaypoints;
+                    mustUpdateDirection = true;
+
+                    //if(Collision.)
+                    transform.parent = L_forearmBone.transform;
+                }*/
     }
 
 

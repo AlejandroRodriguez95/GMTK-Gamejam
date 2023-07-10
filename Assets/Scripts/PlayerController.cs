@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     Quaternion rightIdleRotation;
     [SerializeField]
     Vector3 currentRotation;
+
+    Vector3 leftIdlePos;
+    Vector3 rightIdlePos;
   
     // Start is called before the first frame update
     void Start()
@@ -56,7 +59,10 @@ public class PlayerController : MonoBehaviour
         rightIdleRotation = shoulders[1].transform.rotation;
         activeShoulder = shoulders[0];
         activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);*/
-        raiseModifier = 1;
+        //raiseModifier = 1;
+
+        leftIdlePos = L_Target.transform.position;
+        rightIdlePos = R_Target.transform.position;
 
         //For changing shoulder active/inactive sprites    
         L_ArmRenderer = L_Arm.GetComponent<SpriteRenderer>();
@@ -82,8 +88,8 @@ public class PlayerController : MonoBehaviour
         
         SelectArm();
         // Returns arm to idle position
-        shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);
-        shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, returnScale*Time.deltaTime);
+        //shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);
+        //shoulders[1].transform.rotation = Quaternion.Lerp(shoulders[1].transform.rotation, rightIdleRotation, returnScale*Time.deltaTime);
 /*
         if (Input.GetKey(KeyCode.Space)){
             Debug.Log("Space Pressed");
@@ -95,12 +101,14 @@ public class PlayerController : MonoBehaviour
             {
                 //ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
+                R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.deltaTime);
             }
 
             if (activeShoulder == shoulders[1])
             {
                 //ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
+                L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.deltaTime);
             }
 
           //  activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);

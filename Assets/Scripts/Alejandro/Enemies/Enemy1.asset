@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Enemy1
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  MoveSpeed: 0.7
+  MoveSpeed: 0.00003
