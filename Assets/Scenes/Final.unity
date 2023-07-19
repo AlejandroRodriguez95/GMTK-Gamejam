@@ -770,7 +770,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.020972937, y: -0.12583691}
+  m_Offset: {x: -0.05389677, y: -0.34956142}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -781,7 +781,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7734931, y: 1.2516737}
+  m_Size: {x: 0.4033642, y: 0.35967606}
   m_EdgeRadius: 0
 --- !u!212 &567518767
 SpriteRenderer:
@@ -1234,7 +1234,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.08808592, y: -0.062918484}
+  m_Offset: {x: -0.097930625, y: -0.33749208}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1245,7 +1245,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7567151, y: 1.1258368}
+  m_Size: {x: 0.45809314, y: 0.39364046}
   m_EdgeRadius: 0
 --- !u!212 &1074920148
 SpriteRenderer:
@@ -1507,7 +1507,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 30a3bd0fb7060144f99d84dee1920da3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4293,7 +4293,7 @@ Transform:
   - {fileID: 769959237}
   m_Father: {fileID: 2319998805193611613}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.602}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &2800530009555063043
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4624,7 +4624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3907381482490638383}
   m_Layer: 0
-  m_Name: R_armBone
+  m_Name: L_armBone
   m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4642,7 +4642,7 @@ GameObject:
   - component: {fileID: 8589451495639162115}
   - component: {fileID: 8589451495639162114}
   m_Layer: 0
-  m_Name: R_forearmBone
+  m_Name: R_armBone
   m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

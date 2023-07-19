@@ -85,7 +85,14 @@ public class PlayerController : MonoBehaviour
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             R_Target.transform.position = Vector2.Lerp(R_Target.transform.position, mousePosition, moveSpeed);
         }
-        
+        if (!Input.GetMouseButton(0)) {
+            L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.fixedDeltaTime);
+        }
+        if (!Input.GetMouseButton(1)) {
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
+        }
         SelectArm();
         // Returns arm to idle position
         //shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);
@@ -101,14 +108,14 @@ public class PlayerController : MonoBehaviour
             {
                 //ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
-                R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.deltaTime);
+                
             }
 
             if (activeShoulder == shoulders[1])
             {
                 //ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
-                L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.deltaTime);
+                
             }
 
           //  activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);
