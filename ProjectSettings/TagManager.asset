@@ -10,6 +10,8 @@ TagManager:
   - RightHandHitbox
   - Enemy
   - annoyingButton
+  - EnemyL
+  - EnemyR
   layers:
   - Default
   - TransparentFX

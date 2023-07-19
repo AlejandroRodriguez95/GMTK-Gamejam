@@ -8,7 +8,7 @@ public class EnemyType1 : EnemyBase
 
     public GameObject sfxManager;
 
-
+    float mouseSpeed;
 
     public int currentWaypointIndex;
     Transform lastWaypoint;
@@ -62,15 +62,23 @@ public class EnemyType1 : EnemyBase
 
     private void Update()
     {
-
         
+        mouseSpeed = ((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"))/2/(Screen.width + Screen.height)/2)*10000;
+        if (mouseSpeed < 0)
+        mouseSpeed = mouseSpeed * -1;
+        Debug.Log(mouseSpeed);
+
+    }
+
+    private void FixedUpdate()
+    {
         if (alive) {
             lastPosition = transform.position;
-            transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.deltaTime * 10));
+            transform.position = Vector3.Lerp(transform.position, currentWaypoint.position, Mathf.SmoothStep(0, 1, Time.fixedDeltaTime * 5));
 
             TakeDamage();
             if (currentHealth <= 0) {
-                StartCoroutine(Die());
+               StartCoroutine(Die());
                 alive = false;
             }
 
@@ -139,7 +147,7 @@ public class EnemyType1 : EnemyBase
                 {
                     alreadyLoadedThirdSegment = true;
                     internalWaypoints = Waypoints.LeftArmWaypoints;
-                    transform.parent = L_armBone.transform;
+                    //transform.parent = L_armBone.transform;
                 }
 
                 else
@@ -198,8 +206,11 @@ public class EnemyType1 : EnemyBase
         Vector2 velocity = (transform.position - lastPosition) / Time.deltaTime;
         try
         {
-            if(transform.parent.gameObject.CompareTag("Arm"))
-                currentHealth -= shakeDamageScale * Vector3.Dot(direction, velocity);
+            //if(transform.parent.gameObject.CompareTag("Arm"))
+            //currentHealth -= 1;
+            //currentHealth -= mouseSpeed;
+                
+                //Vector3.Dot(direction, velocity);
         }
         catch { }
         
@@ -214,17 +225,26 @@ public class EnemyType1 : EnemyBase
         Vector3 force = magnitude * new Vector3(Mathf.Cos(angle),Mathf.Sin(angle),0);
         rb2d.AddForce(force, ForceMode2D.Impulse);
         this.source.PlayOneShot(this.source.clip);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         Destroy(gameObject);
     }
-
+    
+    bool collidingwArm;
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null)
+        /*if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null && Input.GetMouseButton(0) && this.gameObject.CompareTag("EnemyL"))
         {
-            currentHealth -= chipDamage;
-            transform.parent = L_forearmBone.transform;
-        }
+            collidingwArm = true;
+            currentHealth -= mouseSpeed;
+        }else if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null && Input.GetMouseButton(1) && this.gameObject.CompareTag("EnemyR"))
+        {
+            collidingwArm = true;
+            currentHealth -= mouseSpeed;
+        }*/
+
+    void OnCollisionExit2D(Collision2D collision) {
+        //collidingwArm = false;
+    }
 
       /*  if (ArmInContactWithFloor.LeftArmIsInContactWithFloor && ) // if arm is in idle pos
                 {
