@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     Vector3 leftIdlePos;
     Vector3 rightIdlePos;
+
+    float mouseSpeed;
+
+    [SerializeField] private AudioClip[] smashSounds;
+    private AudioSource source;
   
     // Start is called before the first frame update
     void Start()
@@ -60,6 +65,8 @@ public class PlayerController : MonoBehaviour
         activeShoulder = shoulders[0];
         activeShoulder.transform.rotation = Quaternion.Euler(currentRotation);*/
         //raiseModifier = 1;
+        
+        this.source = gameObject.GetComponent<AudioSource>();
 
         leftIdlePos = L_Target.transform.position;
         rightIdlePos = R_Target.transform.position;
@@ -80,10 +87,20 @@ public class PlayerController : MonoBehaviour
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             L_Target.transform.position = Vector2.Lerp(L_Target.transform.position, mousePosition, moveSpeed);
+            if (ArmInContactWithFloor.LeftArmIsInContactWithFloor && mouseSpeed > 2 && this.source.isPlaying == false) // if arm is in idle pos
+                {
+                    this.source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
+                    this.source.PlayOneShot(this.source.clip);
+                }
         }else if (Input.GetMouseButton(1)) {
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             R_Target.transform.position = Vector2.Lerp(R_Target.transform.position, mousePosition, moveSpeed);
+            if (ArmInContactWithFloor.RightArmIsInContactWithFloor && mouseSpeed > 2 && this.source.isPlaying == false) // if arm is in idle pos
+                {
+                    this.source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
+                    this.source.PlayOneShot(this.source.clip);
+                }
         }
         if (!Input.GetMouseButton(0)) {
             L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.fixedDeltaTime);
@@ -93,6 +110,17 @@ public class PlayerController : MonoBehaviour
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
         }
+
+        //detect mouse speed
+        mouseSpeed = ((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"))/2/(Screen.width + Screen.height)/2)*10000;
+        if (mouseSpeed < 0)
+        mouseSpeed = mouseSpeed * -1;
+        Debug.Log(mouseSpeed);
+
+        
+        
+        
+
         SelectArm();
         // Returns arm to idle position
         //shoulders[0].transform.rotation = Quaternion.Lerp(shoulders[0].transform.rotation, leftIdleRotation, returnScale*Time.deltaTime);

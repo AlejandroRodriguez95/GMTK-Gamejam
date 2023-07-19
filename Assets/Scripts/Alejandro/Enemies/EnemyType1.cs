@@ -21,6 +21,7 @@ public class EnemyType1 : EnemyBase
     float chipDamage;
     Rigidbody2D rb2d;
     [SerializeField] private AudioClip[] deathSounds;
+    
     private AudioSource source;
     private bool gameOver;
 
@@ -131,6 +132,8 @@ public class EnemyType1 : EnemyBase
                     internalWaypoints = Waypoints.LeftForeArmWaypoints;
                     mustUpdateDirection = true;
 
+                    //if(mouseSpeed > 4)
+                    
                     //if(Collision.)
                     //transform.parent = L_forearmBone.transform;
                 }
