@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -985,9 +985,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1215,7 +1223,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3207424, y: 0.000022649765, z: 0}
     m_Extent: {x: 2.514414, y: 1.9335938, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!212 &612498237361681130
@@ -1476,7 +1483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1632589054963365143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1573,7 +1580,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 10.019532, y: 7.1289053, z: 0}
     m_Extent: {x: 0.91796875, y: 1.2304688, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!4 &1842079268802611098
@@ -1642,7 +1648,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3200006, y: 0.0000218153, z: 0}
     m_Extent: {x: 0.91796875, y: 1.2304688, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!4 &2319998805193611613
@@ -1832,7 +1837,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3216808, y: -0.004410982, z: 0}
     m_Extent: {x: 1.510781, y: 1.4967384, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!1 &3297364354362175348
@@ -2215,7 +2219,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.317949, y: 0.0000218153, z: 0}
     m_Extent: {x: 1.5799809, y: 1.5429692, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!1 &5410813991416658206
@@ -2354,7 +2357,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3179495, y: 0.0000218153, z: 0}
     m_Extent: {x: 1.5799809, y: 1.5429692, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!61 &5850893865522463314
@@ -2367,6 +2369,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2400,7 +2421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5865237146533334254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2419,7 +2440,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3216808, y: -0.004410982, z: 0}
     m_Extent: {x: 1.510781, y: 1.4967384, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!1 &6146150305341529764
@@ -2458,7 +2478,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3149214, y: -0.0027118921, z: 0}
     m_Extent: {x: 1.5138285, y: 1.4990237, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!114 &6524823919749721483
@@ -2479,7 +2498,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3149214, y: -0.0027118921, z: 0}
     m_Extent: {x: 1.5138285, y: 1.4990237, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!212 &6679628318533211179
@@ -2552,7 +2570,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 10.019532, y: 7.1289053, z: 0}
     m_Extent: {x: 0.91796875, y: 1.2304688, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!212 &6850935632605456385
@@ -2625,7 +2642,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3200002, y: 0.0015237331, z: 0}
     m_Extent: {x: 1.7773443, y: 1.4240239, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!114 &7083026882772031605
@@ -2646,7 +2662,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3127732, y: 0.000022530556, z: 0}
     m_Extent: {x: 1.570703, y: 1.5429685, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!212 &7405365480638883891
@@ -2837,7 +2852,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 15
   m_TargetDisplay: 0
@@ -3288,7 +3305,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 2.3127732, y: 0.000022530556, z: 0}
     m_Extent: {x: 1.570703, y: 1.5429685, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!1 &8288588970025532772
@@ -3327,7 +3343,6 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 10.019532, y: 7.1289053, z: 0}
     m_Extent: {x: 0.91796875, y: 1.2304688, z: 0}
-  m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
 --- !u!1 &8357539484371203081
@@ -3436,6 +3451,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

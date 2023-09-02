@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Dan.Demo;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,9 +12,9 @@ public class GameOver2Manager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FadeOutAfter(2));
+       StartCoroutine(FadeOutAfter(2));
 
-        StartCoroutine(GoBackToMainMenu());
+        //StartCoroutine(GoBackToMainMenu());
     }
 
 
@@ -26,6 +27,7 @@ public class GameOver2Manager : MonoBehaviour
 
     public void RestartGame()
     {
+        LeaderboardShowcase.ResetPlayer();
         SceneManager.LoadScene("StartScreen");
     }
 
@@ -42,7 +44,7 @@ public class GameOver2Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(100);
 
-        RestartGame();
+        //RestartGame();
     }
 
     IEnumerator FadeIn()

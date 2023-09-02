@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Dan.Demo;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +31,8 @@ public class EnemyType1 : EnemyBase
     public GameObject R_forearmBone;
     public GameObject R_armBone;
 
+    private Collider2D enemyCollider;
+
     public float ChipDamage
     {
         get { return chipDamage; }
@@ -46,6 +49,7 @@ public class EnemyType1 : EnemyBase
 
         alive = true;
         rb2d = GetComponent<Rigidbody2D>();
+        enemyCollider = GetComponent<Collider2D>();
         currentWaypointIndex = 0;
 
         if(internalWaypoints.Count > 0)
@@ -64,7 +68,7 @@ public class EnemyType1 : EnemyBase
     private void Update()
     {
         
-        mouseSpeed = ((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"))/2/(Screen.width + Screen.height)/2)*10000;
+        mouseSpeed = (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"))/2/(Screen.width + Screen.height)/2*10000;
         if (mouseSpeed < 0)
         mouseSpeed = mouseSpeed * -1;
         Debug.Log(mouseSpeed);
@@ -81,6 +85,7 @@ public class EnemyType1 : EnemyBase
             if (currentHealth <= 0) {
                StartCoroutine(Die());
                 alive = false;
+                
             }
 
         }
@@ -222,6 +227,7 @@ public class EnemyType1 : EnemyBase
 
     IEnumerator Die()
     {
+        enemyCollider.enabled = false;
         rb2d.gravityScale = 0.5f;
         float angle = Random.Range(-Mathf.PI/4,5*Mathf.PI/4);
         float magnitude = Random.Range(10, 20);
@@ -231,34 +237,6 @@ public class EnemyType1 : EnemyBase
         yield return new WaitForSeconds(3);
         Destroy(gameObject);
     }
-    
-    bool collidingwArm;
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        /*if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null && Input.GetMouseButton(0) && this.gameObject.CompareTag("EnemyL"))
-        {
-            collidingwArm = true;
-            currentHealth -= mouseSpeed;
-        }else if (collision.gameObject.CompareTag("Arm") && collision.gameObject.transform.parent == null && Input.GetMouseButton(1) && this.gameObject.CompareTag("EnemyR"))
-        {
-            collidingwArm = true;
-            currentHealth -= mouseSpeed;
-        }*/
-
-    void OnCollisionExit2D(Collision2D collision) {
-        //collidingwArm = false;
-    }
-
-      /*  if (ArmInContactWithFloor.LeftArmIsInContactWithFloor && ) // if arm is in idle pos
-                {
-                    internalWaypoints = Waypoints.LeftForeArmWaypoints;
-                    mustUpdateDirection = true;
-
-                    //if(Collision.)
-                    transform.parent = L_forearmBone.transform;
-                }*/
-    }
-
 
     #region gameover stuff
 
@@ -269,8 +247,9 @@ public class EnemyType1 : EnemyBase
         StartCoroutine(FadeOut());
 
         yield return new WaitForSeconds(seconds + .5f);
-
+        
         SceneManager.LoadScene("GameOver");
+        
     }
 
     IEnumerator FadeOut()
@@ -278,6 +257,7 @@ public class EnemyType1 : EnemyBase
         float elapsedTime = 0f;
         float fadeTime = .5f;
 
+        
         Color color = gameOverImage.color;
 
         while (elapsedTime < fadeTime)
