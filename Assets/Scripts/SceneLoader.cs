@@ -12,10 +12,10 @@ public class SceneLoader : MonoBehaviour
     void Start()
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex == 0)
+        /*if (currentSceneIndex == 0)
         {
             StartCoroutine(LoadScreenDelay());
-        }
+        }*/
         
     }
 
@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadGameOver()
     {
-        StartCoroutine(LoadScreenDelay());
+        //StartCoroutine(LoadScreenDelay());
         SceneManager.LoadScene("Game Over");
     }
 
