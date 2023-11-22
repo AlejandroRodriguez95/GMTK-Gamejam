@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]float innerAngle;
     [SerializeField]float outerAngle;
     // Raise Modifier = +-1 and is used to make sure the active arm always moves upward when scrolling up
-    float raiseModifier;
     [SerializeField]
     Vector3 currentRotation;
 
@@ -45,7 +44,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private AudioClip[] smashSounds;
     private AudioSource source;
-  
+    public Vector2 enemyPos;
+    public float attackDelay = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
         SelectArm();
 
-            if (activeShoulder == shoulders[0])
+            /*if (activeShoulder == shoulders[0])
             {
                 //ArmInContactWithFloor.LeftArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, outerAngle, innerAngle);
@@ -105,16 +105,21 @@ public class PlayerController : MonoBehaviour
                 //ArmInContactWithFloor.RightArmIsInContactWithFloor = false;
                 currentRotation.z = Mathf.Clamp(currentRotation.z, 360 - innerAngle, 360 - outerAngle);
                 
-            }
+            }*/
     }
 
+    public IEnumerator RaiseArmThenSmash()
+    {
+        L_Target.transform.position = new Vector2(enemyPos.x, enemyPos.y +3);
+        yield return new WaitForSeconds(attackDelay);
+        L_Target.transform.position = enemyPos;
+    }
     void SelectArm()
     {
         //On left mouse click, the left arm will be movable
         if (Input.GetMouseButton(0))
         {
             activeShoulder = shoulders[0];
-            raiseModifier = 1;
             L_ArmRenderer.sprite = L_ArmON;
             L_ForeArmRenderer.sprite = L_ForeArmON;
             R_ArmRenderer.sprite = R_ArmOFF;
@@ -125,7 +130,6 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             activeShoulder = shoulders[1];
-            raiseModifier = -1;
             L_ArmRenderer.sprite = L_ArmOFF;
             L_ForeArmRenderer.sprite = L_ForeArmOFF;
             R_ArmRenderer.sprite = R_ArmON;
