@@ -116,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8464510934691822031}
   - component: {fileID: 8464510934691822024}
-  - component: {fileID: 8464510934691822025}
   - component: {fileID: 8464510934691822029}
   - component: {fileID: -8893780559133717719}
   - component: {fileID: -7875984224851414727}
@@ -137,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 8464510934691822026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.37, y: -1.77, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3735067625997387978}
@@ -196,35 +195,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8464510934691822025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8464510934691822026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffff789223b405f479ebd2898facc12c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 4da3e8c12db2c0c4a8613f1a2deeadd4, type: 2}
-  currentHealth: 0
-  internalWaypoints: []
-  currentWaypoint: {fileID: 0}
-  gameOverImage: {fileID: 0}
-  sfxManager: {fileID: 0}
-  currentWaypointIndex: 0
-  shakeDamageScale: 0.05
-  chipDamage: 30
-  deathSounds:
-  - {fileID: 8300000, guid: bba5ed8a4a0a26a49acb472dc2d05941, type: 3}
-  - {fileID: 8300000, guid: 110861af1e0052849ba37413b0f6f7b1, type: 3}
-  - {fileID: 8300000, guid: 548a3570cdc50d44d9aa1ebc5526b2ae, type: 3}
-  - {fileID: 8300000, guid: 8e1e81cba2fef914cb01c077c6aafee2, type: 3}
-  - {fileID: 8300000, guid: 0e9d0f90d381ebb42a933d1137350af0, type: 3}
-  - {fileID: 8300000, guid: 69b1b30f2abfb9a4d868b2958d1ca071, type: 3}
-  - {fileID: 8300000, guid: 04068c68f687cef47b1a16a352182bb1, type: 3}
 --- !u!50 &8464510934691822029
 Rigidbody2D:
   serializedVersion: 4
@@ -242,6 +212,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -256,6 +232,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

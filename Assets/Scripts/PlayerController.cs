@@ -43,15 +43,13 @@ public class PlayerController : MonoBehaviour
     Vector3 leftIdlePos;
     Vector3 rightIdlePos;
 
-    float mouseSpeed;
-
     [SerializeField] private AudioClip[] smashSounds;
     private AudioSource source;
   
     // Start is called before the first frame update
     void Start()
     {
-        this.source = gameObject.GetComponent<AudioSource>();
+        source = gameObject.GetComponent<AudioSource>();
 
         leftIdlePos = L_Target.transform.position;
         rightIdlePos = R_Target.transform.position;
@@ -62,13 +60,10 @@ public class PlayerController : MonoBehaviour
         R_ArmRenderer = R_Arm.GetComponent<SpriteRenderer>();
         R_ForeArmRenderer = R_ForeArm.GetComponent<SpriteRenderer>();
     }
-    void FixedUpdate()
-    {
 
-    }
     void Update()     
     {
-        if (Input.GetMouseButton(0)) {
+        /*if (Input.GetMouseButton(0)) {
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             L_Target.transform.position = Vector2.Lerp(L_Target.transform.position, mousePosition, moveSpeed);
@@ -86,7 +81,7 @@ public class PlayerController : MonoBehaviour
                     this.source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
                     this.source.PlayOneShot(this.source.clip);
                 }
-        }
+        }*/
 
         //return to idle pos
         if (!Input.GetMouseButton(0)) {
@@ -96,14 +91,7 @@ public class PlayerController : MonoBehaviour
             R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
         }
 
-        //detect mouse speed
-        mouseSpeed = ((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"))/2/(Screen.width + Screen.height)/2)*10000;
-        if (mouseSpeed < 0)
-        mouseSpeed = mouseSpeed * -1;
-        Debug.Log(mouseSpeed);
-
         SelectArm();
-        // Returns arm to idle position
 
             if (activeShoulder == shoulders[0])
             {
