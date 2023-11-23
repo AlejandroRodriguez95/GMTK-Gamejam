@@ -7,12 +7,17 @@ public class Enemy : MonoBehaviour
 {
     public Vector2 pos;
     public PlayerController playerController;
-    public int speed = 1;
+    public float speed = 1;
     public string enemyType;
+    private bool inHitArea = false;
+    public bool shielded;
+    public SpriteRenderer circle;
+    public GameObject arrow;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         playerController = GameObject.FindObjectOfType<PlayerController>();
+
     }
 
     // Update is called once per frame
@@ -27,15 +32,24 @@ public class Enemy : MonoBehaviour
             case "r_ground": case "r_sky":
                 transform.position += Vector3.left * Time.deltaTime * speed;
             break;
+
+            case "mr_ground":
+                transform.position += new Vector3(-.5f,.5f,0) * Time.deltaTime * speed;
+            break;
+
+            case "ml_ground":
+                transform.position += new Vector3(.5f,.5f,0) * Time.deltaTime * speed;
+            break;
         }
     }
 
     public void GetAttacked()
     {
-        if(!playerController.currentlyAttacking)
+        if(!playerController.currentlyAttacking && !playerController.preparingAttack && inHitArea)
         {
+            Debug.Log(gameObject.name +" hit!");
             playerController.enemyPos = transform.position;
-            StartCoroutine(playerController.RaiseArmThenSmash());
+            StartCoroutine(playerController.RaiseArmThenSmash(enemyType));
         }
     }
 
@@ -62,15 +76,29 @@ public class Enemy : MonoBehaviour
         yield return null;
         StartCoroutine(Attack_Main());
     }
-
+    public IEnumerator ShootArrow()
+    {
+       yield return new WaitForSeconds(3f);
+       Instantiate(arrow, transform.position, Quaternion.identity);
+       yield return null;
+       StartCoroutine(ShootArrow());
+    }
     void OnTriggerEnter2D(Collider2D col)
     {
         if(playerController.currentlyAttacking && (col.name == "L_forearmBone" || col.name == "R_forearmBone") )
         {
-            Destroy(gameObject);
-            playerController.currentlyAttacking = false;
+            if(!shielded)
+            {
+                Destroy(gameObject);
+                playerController.currentlyAttacking = false;
+            }
+            else if(shielded)
+            {
+                circle.color = new Color(1f, 0, 0, 0.3490196f);
+                shielded = false;
+            }
         }
-        else if(col.name == "L_forearmBone")
+       /* else if(col.name == "L_forearmBone")
         {
             speed = 0;
             StartCoroutine(Attack_L());
@@ -79,23 +107,33 @@ public class Enemy : MonoBehaviour
         {
             speed = 0;
             StartCoroutine(Attack_R());
-        }
+        }*/
         else if(col.name == "Stomach")
         {
             speed = 0;
             StartCoroutine(Attack_Main());
+        }
+
+        if(col.name == "Hit Area" && (enemyType == "l_sky" || enemyType == "r_sky") )
+        {
+            StartCoroutine(ShootArrow());
+        }
+
+        if(col.name == "Hit Area")
+        {
+            circle.enabled = true;
+            inHitArea = true;
         }
     }
 
     void OnTriggerExit2D()
     {
         speed = 1;
-        StopAllCoroutines();
     }
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if(col.name == "L_forearmBone" || col.name == "R_forearmBone" || col.name == "Stomach")
+        if(/*col.name == "L_forearmBone" || col.name == "R_forearmBone" || */col.name == "Stomach")
         {
             speed = 0;
         }

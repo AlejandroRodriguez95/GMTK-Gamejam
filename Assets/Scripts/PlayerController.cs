@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource source;
     public Vector3 enemyPos;
     public float attackDelay = 1;
+    public bool preparingAttack;
     public bool currentlyAttacking;
     public Animator cameraAnimator;
     public int l_health;
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         source = gameObject.GetComponent<AudioSource>();
-
+        preparingAttack = false;
         currentlyAttacking = false;
 
         leftIdlePos = L_Target.transform.position;
@@ -68,32 +69,63 @@ public class PlayerController : MonoBehaviour
         SelectArm();
     }
     
-    public IEnumerator RaiseArmThenSmash()
+    public IEnumerator RaiseArmThenSmash(string enemyType)
     {
-        Vector3 aboveEnemyPos = new Vector3(enemyPos.x, enemyPos.y + 3, enemyPos.z);
+        Vector3 aboveEnemyPos = new Vector3(enemyPos.x, enemyPos.y + 2.4f, enemyPos.z);
+        Vector3 belowEnemyPos = new Vector3(enemyPos.x, enemyPos.y - 3, enemyPos.z);
         float timePassed = 0;
-
+        preparingAttack = true;
         while (timePassed < attackDelay)
         {
             timePassed += Time.deltaTime;
 
             // Calculate the interpolation factor based on time passed
             float t = timePassed / attackDelay;
+            switch(enemyType)
+            {
+                case "l_ground": case "ml_ground":
+                    // Use Vector3.Lerp to smoothly interpolate between positions
+                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, aboveEnemyPos, t);
+                    yield return null;
+                    L_Target.transform.position = aboveEnemyPos;
+                break;
 
-            // Use Vector3.Lerp to smoothly interpolate between positions
-            L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, aboveEnemyPos, t);
+                case "l_sky":
+                    // Use Vector3.Lerp to smoothly interpolate between positions
+                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, belowEnemyPos, t);
+                    yield return null;
+                    L_Target.transform.position = belowEnemyPos;
+                break;
 
-            yield return null;
+                case "r_ground": case "mr_ground":
+                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, aboveEnemyPos, t);
+                    yield return null;
+                    R_Target.transform.position = aboveEnemyPos;
+                break;
+
+                case "r_sky":
+                    // Use Vector3.Lerp to smoothly interpolate between positions
+                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, belowEnemyPos, t);
+                    yield return null;
+                    R_Target.transform.position = belowEnemyPos;
+                break;
+            }
         }
-
-        // Ensure the final position is exactly where you want it
-        L_Target.transform.position = aboveEnemyPos;
-
-        // Wait for a short duration
         yield return new WaitForSeconds(0.1f);
 
         // Set the final position to the original position
-        L_Target.transform.position = enemyPos;
+
+        switch(enemyType)
+            {
+                case "l_ground": case "l_sky": case "ml_ground": 
+                L_Target.transform.position = enemyPos;
+                break;
+
+                case "r_ground": case "r_sky": case "mr_ground": 
+                R_Target.transform.position = enemyPos;
+                break;
+            }
+        preparingAttack = false;
         currentlyAttacking = true;
         cameraAnimator.Play("ScreenShake");
         source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
