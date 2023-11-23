@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7521383207891533131}
   - component: {fileID: 6495726051172019385}
   m_Layer: 3
-  m_Name: L_Shield
+  m_Name: mL_Shield
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   m_Children:
   - {fileID: 1627137681891548934}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1710784368371705822
 SpriteRenderer:
@@ -106,7 +106,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   playerController: {fileID: 0}
   speed: 0.8
-  enemyType: l_shield
+  enemyType: ml_shield
   shielded: 1
   circle: {fileID: 3161129026476811660}
   arrow: {fileID: 0}

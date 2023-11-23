@@ -190,6 +190,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   speed: 1
   enemyType: mr_ground
+  shielded: 0
   circle: {fileID: 6879279050699934814}
   arrow: {fileID: 0}
 --- !u!50 &8464510934691822029
@@ -211,14 +212,14 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &-8893780559133717719
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -231,10 +232,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -251,7 +252,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.11158964, y: 0.0043999553}
+  m_Offset: {x: 0.22954771, y: -0.011120968}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -262,7 +263,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8047938, y: 0.5192107}
+  m_Size: {x: 0.56887764, y: 0.48816884}
   m_EdgeRadius: 0
 --- !u!95 &6403822923139497589
 Animator:

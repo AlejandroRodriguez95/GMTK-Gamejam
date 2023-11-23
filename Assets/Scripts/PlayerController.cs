@@ -31,50 +31,56 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private AudioClip[] smashSounds;
     private AudioSource source;
-    public Vector3 enemyPos;
+    public Vector3 L_enemyPos;
+    public Vector3 R_enemyPos;
     public float attackDelay = 1;
-    public bool preparingAttack;
-    public bool currentlyAttacking;
+    public bool L_preparingAttack;
+    public bool R_preparingAttack;
+    public bool L_currentlyAttacking;
+    public bool R_currentlyAttacking;
     public Animator cameraAnimator;
     public int l_health;
     public int r_health;
-    public int health;
+    public static int health;
+    public EnemySpawner enemySpawner;
     // Start is called before the first frame update
     void Start()
     {
         source = gameObject.GetComponent<AudioSource>();
-        preparingAttack = false;
-        currentlyAttacking = false;
+        L_preparingAttack = false;
+        R_preparingAttack = false;
+        L_currentlyAttacking = false;
+        R_currentlyAttacking = false;
 
         leftIdlePos = L_Target.transform.position;
         rightIdlePos = R_Target.transform.position;
-
-        //For changing shoulder active/inactive sprites    
-        L_ArmRenderer = L_Arm.GetComponent<SpriteRenderer>();
-        L_ForeArmRenderer = L_ForeArm.GetComponent<SpriteRenderer>();
-        R_ArmRenderer = R_Arm.GetComponent<SpriteRenderer>();
-        R_ForeArmRenderer = R_ForeArm.GetComponent<SpriteRenderer>();
     }
 
     void Update()     
     {
         //return to idle pos
-        if (!Input.GetMouseButton(0)) {
-            L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.fixedDeltaTime);
-        }
-        if (!Input.GetMouseButton(1)) {
-            R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
-        }
-
-        SelectArm();
+        L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.fixedDeltaTime);
+        R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
     }
     
     public IEnumerator RaiseArmThenSmash(string enemyType)
     {
-        Vector3 aboveEnemyPos = new Vector3(enemyPos.x, enemyPos.y + 2.4f, enemyPos.z);
-        Vector3 belowEnemyPos = new Vector3(enemyPos.x, enemyPos.y - 3, enemyPos.z);
+        Vector3 L_aboveEnemyPos = new Vector3(L_enemyPos.x, L_enemyPos.y + 2.4f, L_enemyPos.z);
+        Vector3 L_belowEnemyPos = new Vector3(L_enemyPos.x, L_enemyPos.y - 3, L_enemyPos.z);
+        Vector3 R_aboveEnemyPos = new Vector3(R_enemyPos.x, R_enemyPos.y + 2.4f, R_enemyPos.z);
+        Vector3 R_belowEnemyPos = new Vector3(R_enemyPos.x, R_enemyPos.y - 3, R_enemyPos.z);
         float timePassed = 0;
-        preparingAttack = true;
+        switch(enemyType)
+        {
+            case "l_ground": case "l_sky": case "l_shield": case "ml_ground": case "ml_shield":
+                L_preparingAttack = true;
+            break;
+
+            case "r_ground": case "r_sky": case "r_shield": case "mr_ground": case "mr_shield":
+                R_preparingAttack = true;
+            break;
+        }
+
         while (timePassed < attackDelay)
         {
             timePassed += Time.deltaTime;
@@ -83,31 +89,31 @@ public class PlayerController : MonoBehaviour
             float t = timePassed / attackDelay;
             switch(enemyType)
             {
-                case "l_ground": case "ml_ground":
+                case "l_ground": case "ml_ground": case "l_shield": case "ml_shield":
                     // Use Vector3.Lerp to smoothly interpolate between positions
-                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, aboveEnemyPos, t);
+                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, L_aboveEnemyPos, t);
                     yield return null;
-                    L_Target.transform.position = aboveEnemyPos;
+                    L_Target.transform.position = L_aboveEnemyPos;
                 break;
 
                 case "l_sky":
                     // Use Vector3.Lerp to smoothly interpolate between positions
-                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, belowEnemyPos, t);
+                    L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, L_belowEnemyPos, t);
                     yield return null;
-                    L_Target.transform.position = belowEnemyPos;
+                    L_Target.transform.position = L_belowEnemyPos;
                 break;
 
-                case "r_ground": case "mr_ground":
-                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, aboveEnemyPos, t);
+                case "r_ground": case "mr_ground": case "r_shield": case "mr_shield":
+                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, R_aboveEnemyPos, t);
                     yield return null;
-                    R_Target.transform.position = aboveEnemyPos;
+                    R_Target.transform.position = R_aboveEnemyPos;
                 break;
 
                 case "r_sky":
                     // Use Vector3.Lerp to smoothly interpolate between positions
-                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, belowEnemyPos, t);
+                    R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, R_belowEnemyPos, t);
                     yield return null;
-                    R_Target.transform.position = belowEnemyPos;
+                    R_Target.transform.position = R_belowEnemyPos;
                 break;
             }
         }
@@ -117,38 +123,22 @@ public class PlayerController : MonoBehaviour
 
         switch(enemyType)
             {
-                case "l_ground": case "l_sky": case "ml_ground": 
-                L_Target.transform.position = enemyPos;
+                case "l_ground": case "l_sky": case "ml_ground": case "l_shield": case "ml_shield":
+                L_Target.transform.position = L_enemyPos;
+                L_currentlyAttacking = true;
+                L_preparingAttack = false;
                 break;
 
-                case "r_ground": case "r_sky": case "mr_ground": 
-                R_Target.transform.position = enemyPos;
+                case "r_ground": case "r_sky": case "mr_ground": case "r_shield": case "mr_shield":
+                R_Target.transform.position = R_enemyPos;
+                R_currentlyAttacking = true;
+                R_preparingAttack = false;
                 break;
             }
-        preparingAttack = false;
-        currentlyAttacking = true;
         cameraAnimator.Play("ScreenShake");
         source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
         source.PlayOneShot(this.source.clip);
-    }
-    void SelectArm()
-    {
-        //On left mouse click, the left arm will be movable
-        if (Input.GetMouseButton(0))
-        {
-            L_ArmRenderer.sprite = L_ArmON;
-            L_ForeArmRenderer.sprite = L_ForeArmON;
-            R_ArmRenderer.sprite = R_ArmOFF;
-            R_ForeArmRenderer.sprite = R_ForeArmOFF;
-        }
-
-        // The same with the right mouse click and right arm
-        else if (Input.GetMouseButton(1))
-        {
-            L_ArmRenderer.sprite = L_ArmOFF;
-            L_ForeArmRenderer.sprite = L_ForeArmOFF;
-            R_ArmRenderer.sprite = R_ArmON;
-            R_ForeArmRenderer.sprite = R_ForeArmON;
-        }
+        print("play");
+        enemySpawner.SpawnWaveAfterClear();
     }
 }

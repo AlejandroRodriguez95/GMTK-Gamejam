@@ -10,14 +10,15 @@ public class EnemySpawner : MonoBehaviour
     public float waitTime = 1f;
     public float clampMin = 2f;
     public float clampMax = 20f;
-    public int spawnedCount;
+    public int spawnedCount = 0;
+    public static int enemiesToKill = 0;
     // Start is called before the first frame update
     void Start()
     {
-        spawnedCount = 0;
         if(spawnWaves)
         {
-            StartCoroutine(SpawnWaveEveryXSeconds());
+            SpawnWaveAfterClear();
+            //StartCoroutine(SpawnWaveEveryXSeconds());
         }else
         {
             StartCoroutine(SpawnEnemyEveryXSeconds());
@@ -35,6 +36,18 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(SpawnWaveEveryXSeconds());
         }
         yield return null;
+    }
+
+    public void SpawnWaveAfterClear()
+    {
+        print("ifnotcleared " + enemiesToKill);
+        if(spawnedCount < waves.Length && enemiesToKill <= 1)
+        {
+            print("ifcleared " + enemiesToKill);
+            enemiesToKill = 0;
+            Instantiate(waves[spawnedCount]);
+            spawnedCount++;
+        }
     }
 
     IEnumerator SpawnEnemyEveryXSeconds()
