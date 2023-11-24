@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -62,7 +63,15 @@ public class PlayerController : MonoBehaviour
         L_Target.transform.position = Vector3.Lerp(L_Target.transform.position, leftIdlePos, returnScale*Time.fixedDeltaTime);
         R_Target.transform.position = Vector3.Lerp(R_Target.transform.position, rightIdlePos, returnScale*Time.fixedDeltaTime);
     }
-    
+    public static void GetDamaged()
+    {
+        health--;
+        print(health);
+        if(health <= -15)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+    }
     public IEnumerator RaiseArmThenSmash(string enemyType)
     {
         Vector3 L_aboveEnemyPos = new Vector3(L_enemyPos.x, L_enemyPos.y + 2.4f, L_enemyPos.z);
@@ -138,7 +147,5 @@ public class PlayerController : MonoBehaviour
         cameraAnimator.Play("ScreenShake");
         source.clip = this.smashSounds[Random.Range(0, smashSounds.Length)];
         source.PlayOneShot(this.source.clip);
-        print("play");
-        enemySpawner.SpawnWaveAfterClear();
     }
 }

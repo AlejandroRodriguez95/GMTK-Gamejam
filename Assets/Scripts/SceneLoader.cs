@@ -43,7 +43,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadGameOver()
     {
         //StartCoroutine(LoadScreenDelay());
-        SceneManager.LoadScene("Game Over");
+        SceneManager.LoadScene("GameOver");
     }
 
     public void ReloadScene()

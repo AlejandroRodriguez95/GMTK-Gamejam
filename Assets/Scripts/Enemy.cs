@@ -15,14 +15,20 @@ public class Enemy : MonoBehaviour
     public GameObject arrow;
     private AudioSource audioSource;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private Collider2D col;
     // Start is called before the first frame update
     void Start()
     {
-        if(enemyType == "l_shield" || enemyType == "r_shield")
-        {audioSource = GetComponent<AudioSource>();}
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
         EnemySpawner.enemiesToKill++;
+        EnemySpawner.enemiesLeft.Add(gameObject);
+        print("Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
+        if(enemyType == "l_shield" || enemyType == "r_shield")
+        {audioSource = GetComponent<AudioSource>();}
     }
 
     // Update is called once per frame
@@ -70,45 +76,47 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public IEnumerator Attack_L()
-    {
-        yield return new WaitForSeconds(3f);
-        playerController.l_health -= 1;
-        yield return null;
-        StartCoroutine(Attack_L());
-    }
-
-    public IEnumerator Attack_R()
-    {
-        yield return new WaitForSeconds(3f);
-        playerController.r_health -= 1;
-        yield return null;
-        StartCoroutine(Attack_R());
-    }
 
     public IEnumerator Attack_Main()
     {
-        yield return new WaitForSeconds(3f);
-        PlayerController.health -= 1;
+        yield return new WaitForSeconds(1f);
+        PlayerController.GetDamaged();
         yield return null;
+        yield return new WaitForSeconds(2f);
         StartCoroutine(Attack_Main());
     }
     public IEnumerator ShootArrow()
     {
        yield return new WaitForSeconds(3f);
+       if(col.enabled)
        Instantiate(arrow, transform.position, Quaternion.identity);
        yield return null;
        StartCoroutine(ShootArrow());
     }
-    
+    IEnumerator DisableThenDestroy()
+    {
+        EnemySpawner.enemiesToKill--;
+        EnemySpawner.enemiesLeft.Remove(gameObject);
+        col.enabled = false;
+        spriteRenderer.enabled = false;
+        circle.enabled = false;
+        print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
+        StartCoroutine(playerController.enemySpawner.SpawnWaveAfterClear());
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
+        yield return null;
+    }
     void OnTriggerEnter2D(Collider2D col)
     {
         if(playerController.L_currentlyAttacking && col.name == "L_forearmBone")
         {
             if(!shielded)
             {
-                Destroy(gameObject);
-                EnemySpawner.enemiesToKill--;
+                StartCoroutine(DisableThenDestroy());
+                /*EnemySpawner.enemiesToKill--;
+                EnemySpawner.enemiesLeft.Remove(gameObject);
+                print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
+                Destroy(gameObject);*/
             }
             else if(shielded)
             {
@@ -121,8 +129,11 @@ public class Enemy : MonoBehaviour
         {
             if(!shielded)
             {
-                Destroy(gameObject);
-                EnemySpawner.enemiesToKill--;
+                StartCoroutine(DisableThenDestroy());
+                /*EnemySpawner.enemiesToKill--;
+                EnemySpawner.enemiesLeft.Remove(gameObject);
+                print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
+                Destroy(gameObject);*/
             }
             else if(shielded)
             {
@@ -137,7 +148,7 @@ public class Enemy : MonoBehaviour
             StartCoroutine(Attack_Main());
         }
 
-        if(col.name == "Hit Area" && (enemyType == "l_sky" || enemyType == "r_sky") )
+        if(col.name == "Hit Area" && (enemyType == "l_sky" || enemyType == "r_sky"))
         {
             StartCoroutine(ShootArrow());
         }

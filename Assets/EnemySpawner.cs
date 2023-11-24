@@ -7,17 +7,19 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     public GameObject[] waves;
     public bool spawnWaves;
-    public float waitTime = 1f;
+    public float waitTime = 2f;
     public float clampMin = 2f;
     public float clampMax = 20f;
     public int spawnedCount = 0;
     public static int enemiesToKill = 0;
+    public static List<GameObject> enemiesLeft = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
         if(spawnWaves)
         {
-            SpawnWaveAfterClear();
+            Instantiate(waves[spawnedCount]);
+            spawnedCount++;
             //StartCoroutine(SpawnWaveEveryXSeconds());
         }else
         {
@@ -38,16 +40,19 @@ public class EnemySpawner : MonoBehaviour
         yield return null;
     }
 
-    public void SpawnWaveAfterClear()
+    public IEnumerator SpawnWaveAfterClear()
     {
-        print("ifnotcleared " + enemiesToKill);
-        if(spawnedCount < waves.Length && enemiesToKill <= 1)
+        print("ifnotcleared " + enemiesToKill+"/"+enemiesLeft.Count);
+        if(spawnedCount < waves.Length && enemiesToKill == 0)
         {
             print("ifcleared " + enemiesToKill);
             enemiesToKill = 0;
+            yield return new WaitForSeconds(waitTime);
+            print("instantiated");
             Instantiate(waves[spawnedCount]);
             spawnedCount++;
         }
+        yield return null;
     }
 
     IEnumerator SpawnEnemyEveryXSeconds()
@@ -62,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
             waitTime -= 1f;
         }
 
-        if(waitTime <= 8 && (spawnedCount == 15 || spawnedCount == 23 || spawnedCount == 27) )
+        if(waitTime > 8 && (spawnedCount == 15 || spawnedCount == 23 || spawnedCount == 27) )
         {
             waitTime -= 3f;
         }

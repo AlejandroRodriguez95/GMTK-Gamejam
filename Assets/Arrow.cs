@@ -15,6 +15,8 @@ public class Arrow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce((new Vector3(0, -2) - transform.position).normalized * speed);
+        audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -31,9 +33,9 @@ public class Arrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.name == "Chest")
+        if(col.name == "Stomach")
         {
-            PlayerController.health--;
+            PlayerController.GetDamaged();
             StartCoroutine(DisableThenDestroy());
         }
     }
@@ -42,7 +44,7 @@ public class Arrow : MonoBehaviour
     {
         //hit
         spriteRenderer.enabled = false;
-        audioSource.clip = hitClip[Random.Range(0,hitClip.Length+1)];
+        audioSource.clip = hitClip[Random.Range(0,hitClip.Length)];
         audioSource.Play();
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
