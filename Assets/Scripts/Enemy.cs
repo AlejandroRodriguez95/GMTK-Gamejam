@@ -80,7 +80,8 @@ public class Enemy : MonoBehaviour
     public IEnumerator Attack_Main()
     {
         yield return new WaitForSeconds(1f);
-        PlayerController.GetDamaged();
+        if(col.enabled)
+        {PlayerController.GetDamaged();}
         yield return null;
         yield return new WaitForSeconds(2f);
         StartCoroutine(Attack_Main());
