@@ -135,12 +135,14 @@ public class PlayerController : MonoBehaviour
                 case "l_ground": case "l_sky": case "ml_ground": case "l_shield": case "ml_shield":
                 L_Target.transform.position = L_enemyPos;
                 L_currentlyAttacking = true;
+                yield return new WaitForSeconds(0.1f);
                 L_preparingAttack = false;
                 break;
 
                 case "r_ground": case "r_sky": case "mr_ground": case "r_shield": case "mr_shield":
                 R_Target.transform.position = R_enemyPos;
                 R_currentlyAttacking = true;
+                yield return new WaitForSeconds(0.1f);
                 R_preparingAttack = false;
                 break;
             }

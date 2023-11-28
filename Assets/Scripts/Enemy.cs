@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,9 +18,11 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
+    private EventTrigger eventTrigger;
     // Start is called before the first frame update
     void Start()
     {
+        eventTrigger = GetComponent<EventTrigger>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
@@ -74,6 +77,7 @@ public class Enemy : MonoBehaviour
                 }
             break;
         }
+        //eventTrigger.enabled = false;
     }
 
 
@@ -101,6 +105,12 @@ public class Enemy : MonoBehaviour
         col.enabled = false;
         spriteRenderer.enabled = false;
         circle.enabled = false;
+
+        if(playerController.L_currentlyAttacking)
+        {playerController.L_currentlyAttacking = false;}
+        else if(playerController.R_currentlyAttacking)
+        {playerController.R_currentlyAttacking = false;}
+        
         print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
         StartCoroutine(playerController.enemySpawner.SpawnWaveAfterClear());
         yield return new WaitForSeconds(3f);
@@ -114,10 +124,6 @@ public class Enemy : MonoBehaviour
             if(!shielded)
             {
                 StartCoroutine(DisableThenDestroy());
-                /*EnemySpawner.enemiesToKill--;
-                EnemySpawner.enemiesLeft.Remove(gameObject);
-                print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
-                Destroy(gameObject);*/
             }
             else if(shielded)
             {
@@ -125,16 +131,11 @@ public class Enemy : MonoBehaviour
                 circle.color = new Color(1f, 0, 0, 0.3490196f);
                 shielded = false;
             }
-            playerController.L_currentlyAttacking = false;
         }else if(playerController.R_currentlyAttacking && col.name == "R_forearmBone")
         {
             if(!shielded)
             {
                 StartCoroutine(DisableThenDestroy());
-                /*EnemySpawner.enemiesToKill--;
-                EnemySpawner.enemiesLeft.Remove(gameObject);
-                print("-Kill:"+EnemySpawner.enemiesToKill + " Left:"+EnemySpawner.enemiesLeft.Count);
-                Destroy(gameObject);*/
             }
             else if(shielded)
             {
@@ -142,7 +143,6 @@ public class Enemy : MonoBehaviour
                 circle.color = new Color(1f, 0, 0, 0.3490196f);
                 shielded = false;
             }
-            playerController.R_currentlyAttacking = false;
         }else if(col.name == "Stomach")
         {
             speed = 0;
