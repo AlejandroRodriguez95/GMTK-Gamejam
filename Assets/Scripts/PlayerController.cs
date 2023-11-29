@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EnemySpawner.enemiesToKill = 0;
         source = gameObject.GetComponent<AudioSource>();
         L_preparingAttack = false;
         R_preparingAttack = false;

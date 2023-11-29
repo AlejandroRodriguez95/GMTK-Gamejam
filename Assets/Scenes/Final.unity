@@ -1165,7 +1165,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1859102641725452354, guid: 8d873e4064414554dbbe11ff13e95597, type: 3}
       propertyPath: m_text
-      value: 0
+      value: Wave 1
       objectReference: {fileID: 0}
     - target: {fileID: 1859102641725452354, guid: 8d873e4064414554dbbe11ff13e95597, type: 3}
       propertyPath: m_fontSize
@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829502910}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699ea0d9c9613b745bd3e177313af341, type: 3}
   m_Name: 

@@ -10,12 +10,13 @@ public class EnemySpawner : MonoBehaviour
     public float waitTime = 2f;
     public float clampMin = 2f;
     public float clampMax = 20f;
-    public int spawnedCount = 0;
-    public static int enemiesToKill = 0;
+    public int spawnedCount;
+    public static int enemiesToKill;
     public static List<GameObject> enemiesLeft = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
+        spawnedCount = 0;
         if(spawnWaves)
         {
             Instantiate(waves[spawnedCount]);
